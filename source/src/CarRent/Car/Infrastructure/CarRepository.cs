@@ -2,8 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarRent.Car.Application;
 using CarRent.Car.Domain;
-using CarRent.Common.Domain;
+using CarRent.Common.Application;
 
 namespace CarRent.Car.Infrastructure
 {
@@ -27,9 +28,9 @@ namespace CarRent.Car.Infrastructure
         }
 
         public IQueryable<Domain.Car> GetCars => _db.Cars;
-        public async Task<Response> Save(Domain.Car car)
+        public async Task<ResponseDTO> Save(Domain.Car car)
         {
-            Response response = new Response();
+            ResponseDTO responseDto = new ResponseDTO();
             if (car.Id == 0)
             {
                 try
@@ -37,14 +38,14 @@ namespace CarRent.Car.Infrastructure
                     await _db.AddAsync(car);
                     await _db.SaveChangesAsync();
 
-                    response.Id = car.Id;
-                    response.Flag = true;
-                    response.Message = "Has Been Added.";
+                    responseDto.Id = car.Id;
+                    responseDto.Flag = true;
+                    responseDto.Message = "Has Been Added.";
                 }
                 catch (Exception e)
                 {
-                    response.Flag = false;
-                    response.Message = e.ToString();
+                    responseDto.Flag = false;
+                    responseDto.Message = e.ToString();
                 }
             }
             else if (car.Id != 0)
@@ -58,22 +59,22 @@ namespace CarRent.Car.Infrastructure
                 try
                 {
                     await _db.SaveChangesAsync();
-                    response.Id = car.Id;
-                    response.Flag = true;
-                    response.Message= "Has Been Updated.";
+                    responseDto.Id = car.Id;
+                    responseDto.Flag = true;
+                    responseDto.Message= "Has Been Updated.";
                 }
                 catch (Exception e)
                 {
-                    response.Flag = false;
-                    response.Message = e.ToString();
+                    responseDto.Flag = false;
+                    responseDto.Message = e.ToString();
                 }
             }
-            return response;
+            return responseDto;
         }
 
-        public async Task<Response> DeleteAsync(int? id)
+        public async Task<ResponseDTO> DeleteAsync(int? id)
         {
-            Response response = new Response();
+            ResponseDTO responseDto = new ResponseDTO();
             Domain.Car car = await GetCar(id);
 
             if (car != null)
@@ -83,22 +84,22 @@ namespace CarRent.Car.Infrastructure
                     _db.Cars.Remove(car);
                     await _db.SaveChangesAsync();
 
-                    response.Flag = true;
-                    response.Message = "Has been Deleted.";
+                    responseDto.Flag = true;
+                    responseDto.Message = "Has been Deleted.";
                 }
                 catch (Exception e)
                 {
-                    response.Flag = false;
-                    response.Message = e.ToString();
+                    responseDto.Flag = false;
+                    responseDto.Message = e.ToString();
                 }
             }
             else
             {
-                response.Flag = false;
-                response.Message = "Car does not exist.";
+                responseDto.Flag = false;
+                responseDto.Message = "Car does not exist.";
             }
 
-            return response;
+            return responseDto;
         }
     }
 }

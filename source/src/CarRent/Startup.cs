@@ -10,6 +10,10 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using CarRent.Car.Application;
+using CarRent.Car.Domain;
+using CarRent.Car.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRent
 {
@@ -25,6 +29,9 @@ namespace CarRent
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
+            services.AddTransient<ICarService, CarService>();
+            services.AddTransient<ICarRepository, CarRepository>();
             services.AddControllers();
         }
 
