@@ -5,6 +5,8 @@ using System.Threading.Tasks;
 using CarRent.Car.Application;
 using CarRent.Car.Domain;
 using CarRent.Common.Application;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.Car.Infrastructure
 {
@@ -27,7 +29,15 @@ namespace CarRent.Car.Infrastructure
             return car;
         }
 
-        public IQueryable<Domain.Car> GetCars => _db.Cars;
+        //public IQueryable<Domain.Car> GetCars => _db.Cars;
+
+        public Task<List<CarDTO>> GetCars()
+        {
+            var cars = _db.Cars
+                .Include(specification => specification.Specification)
+                .Select(x => new CarDTO(x)).ToListAsync();
+            return cars;
+        }
 
         public async Task<ResponseDTO> Save(Domain.Car car)
         {

@@ -15,10 +15,14 @@ namespace CarRent.Car.Application
 
         public CarDTO(Domain.Car x)
         {
+            if(Specification == null)
+                this.Specification = new CarSpecification();
             Id = x.Id;
             Brand = x.Brand;
             Model = x.Model;
-            Specification = x.Specification;
+            Specification.Year = x.Specification.Year;
+            Specification.EngineDisplacement = x.Specification.EngineDisplacement;
+            Specification.EnginePower = x.Specification.EnginePower;
         }
     }
 }

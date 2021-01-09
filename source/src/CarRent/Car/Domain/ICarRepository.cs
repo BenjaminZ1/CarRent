@@ -11,7 +11,8 @@ namespace CarRent.Car.Domain
     public interface ICarRepository
     {
         Task<Car> GetCar(int? id);
-        IQueryable<Car> GetCars { get; }
+        //IQueryable<Car> GetCars { get; }
+        Task<List<CarDTO>> GetCars();
         Task<ResponseDTO> Save(Car car);
         Task<ResponseDTO> DeleteAsync(int? id);
     }

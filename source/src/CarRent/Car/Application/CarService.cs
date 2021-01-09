@@ -18,9 +18,16 @@ namespace CarRent.Car.Application
             _db = db;
         }
 
+        //public IQueryable<Domain.Car> GetCars()
+        //{
+        //    //var data = await _db.GetCars.Select(x => new CarDTO(x)).ToListAsync();
+        //    var data =  _db.GetCars;
+        //    return data;
+        //}
+
         public async Task<List<CarDTO>> GetCars()
         {
-            var data = await _db.GetCars.Select(x => new CarDTO(x)).ToListAsync();
+            var data = await _db.GetCars();
             return data;
         }
 
