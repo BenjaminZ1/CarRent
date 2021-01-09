@@ -30,19 +30,21 @@ namespace CarRent
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
-            services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
+            services.AddDbContext<CarDbContext>(opt => opt.UseMySql("server=localhost;user id=studentapi;password=student989$;database=carrent", ServerVersion.AutoDetect("server=localhost;user id=studentapi;password=student989$;database=carrent")));
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ICarRepository, CarRepository>();
             services.AddControllers();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CarDbContext db)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
+
+            db.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
 

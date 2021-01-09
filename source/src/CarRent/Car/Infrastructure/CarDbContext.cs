@@ -11,9 +11,12 @@ namespace CarRent.Car.Infrastructure
     {
         public CarDbContext(DbContextOptions<CarDbContext> options) : base(options){ }
         public DbSet<Domain.Car> Cars { get; set; }
+        public DbSet<CarSpecification> Specifications { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<CarSpecification>()
                 .HasMany(c => c.Cars)
                 .WithOne(e => e.Specification);
