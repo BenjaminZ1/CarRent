@@ -20,7 +20,13 @@ namespace CarRent.Car.Controllers
         {
             _carService = carService;
         }
-        // GET: api/<CarController>
+
+        [HttpGet]
+        public IActionResult GetStudents()
+        {
+            var data = _carService.GetStudents();
+            return Ok(data);
+        }
         [HttpPost]
         public async Task<IActionResult> Save([FromBody] Domain.Car car)
         {

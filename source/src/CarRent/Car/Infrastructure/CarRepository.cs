@@ -54,7 +54,9 @@ namespace CarRent.Car.Infrastructure
                 entity.Id = car.Id;
                 entity.Brand = car.Brand;
                 entity.Model = car.Model;
-                entity.Specification = car.Specification;
+                entity.Specification.Year = car.Specification.Year;
+                entity.Specification.EngineDisplacement = car.Specification.EngineDisplacement;
+                entity.Specification.EnginePower = car.Specification.EnginePower;
 
                 try
                 {
