@@ -18,7 +18,7 @@ namespace CarRent.Car.Application
             _db = db;
         }
 
-        public async Task<List<CarDTO>> GetStudents()
+        public async Task<List<CarDTO>> GetCars()
         {
             var data = await _db.GetCars.Select(x => new CarDTO(x)).ToListAsync();
             return data;

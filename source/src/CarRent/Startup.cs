@@ -29,6 +29,7 @@ namespace CarRent
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            //services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
             services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ICarRepository, CarRepository>();

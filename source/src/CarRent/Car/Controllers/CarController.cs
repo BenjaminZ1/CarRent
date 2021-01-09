@@ -24,7 +24,7 @@ namespace CarRent.Car.Controllers
         [HttpGet]
         public IActionResult GetStudents()
         {
-            var data = _carService.GetStudents();
+            var data = _carService.GetCars();
             return Ok(data);
         }
         [HttpPost]

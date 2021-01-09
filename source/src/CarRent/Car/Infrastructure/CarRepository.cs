@@ -28,6 +28,7 @@ namespace CarRent.Car.Infrastructure
         }
 
         public IQueryable<Domain.Car> GetCars => _db.Cars;
+
         public async Task<ResponseDTO> Save(Domain.Car car)
         {
             ResponseDTO responseDto = new ResponseDTO();

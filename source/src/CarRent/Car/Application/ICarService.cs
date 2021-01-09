@@ -8,7 +8,7 @@ namespace CarRent.Car.Application
 {
     public interface ICarService
     {
-        Task<List<CarDTO>> GetStudents();
+        Task<List<CarDTO>> GetCars();
         Task<ResponseDTO> Save(Domain.Car car);
     }
 }
