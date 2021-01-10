@@ -24,24 +24,24 @@ namespace CarRent.Car.Infrastructure
             var car = new Domain.Car();
             if (id != null)
             {
-                car = await _db.Cars.FindAsync(id);
+                car = await _db.Car.FindAsync(id);
             }
             return car;
         }
 
         //public IQueryable<Domain.Car> GetCars => _db.Cars;
 
-        public Task<List<CarDTO>> GetCars()
+        public List<Domain.Car> GetCars()
         {
-            var cars = _db.Cars
-                .Include(specification => specification.Specification)
-                .Select(x => new CarDTO(x)).ToListAsync();
+            var cars =  _db.Car
+                    .Include(car => car.Specification)
+                    .ToList();
             return cars;
         }
 
-        public async Task<ResponseDTO> Save(Domain.Car car)
+        public async Task<ResponseDto> Save(Domain.Car car)
         {
-            ResponseDTO responseDto = new ResponseDTO();
+            ResponseDto responseDto = new ResponseDto();
             if (car.Id == 0)
             {
                 try
@@ -85,16 +85,16 @@ namespace CarRent.Car.Infrastructure
             return responseDto;
         }
 
-        public async Task<ResponseDTO> DeleteAsync(int? id)
+        public async Task<ResponseDto> DeleteAsync(int? id)
         {
-            ResponseDTO responseDto = new ResponseDTO();
+            ResponseDto responseDto = new ResponseDto();
             Domain.Car car = await GetCar(id);
 
             if (car != null)
             {
                 try
                 {
-                    _db.Cars.Remove(car);
+                    _db.Car.Remove(car);
                     await _db.SaveChangesAsync();
 
                     responseDto.Flag = true;

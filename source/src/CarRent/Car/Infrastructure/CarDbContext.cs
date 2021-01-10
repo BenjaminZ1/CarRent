@@ -10,16 +10,25 @@ namespace CarRent.Car.Infrastructure
     public class CarDbContext : DbContext
     {
         public CarDbContext(DbContextOptions<CarDbContext> options) : base(options){ }
-        public DbSet<Domain.Car> Cars { get; set; }
-        public DbSet<CarSpecification> Specifications { get; set; }
+        public DbSet<Domain.Car> Car { get; set; }
+        public DbSet<CarSpecification> Specification { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<CarSpecification>()
-                .HasMany(c => c.Cars)
-                .WithOne(e => e.Specification);
+            //modelBuilder.Entity<CarSpecification>()
+            //    .HasMany(c => c.Cars)
+            //    .WithOne(e => e.Specification)
+            //    .HasForeignKey(e => e.Id)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
+            modelBuilder.Entity<Domain.Car>()
+                .HasOne(c => c.Specification)
+                .WithMany(e => e.Cars)
+                .HasForeignKey(e => e.CarSpecificationId)
+                .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

@@ -12,8 +12,8 @@ namespace CarRent.Car.Domain
     {
         Task<Car> GetCar(int? id);
         //IQueryable<Car> GetCars { get; }
-        Task<List<CarDTO>> GetCars();
-        Task<ResponseDTO> Save(Car car);
-        Task<ResponseDTO> DeleteAsync(int? id);
+        List<Domain.Car> GetCars();
+        Task<ResponseDto> Save(Car car);
+        Task<ResponseDto> DeleteAsync(int? id);
     }
 }

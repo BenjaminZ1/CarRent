@@ -30,7 +30,7 @@ namespace CarRent
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
-            services.AddDbContext<CarDbContext>(opt => opt.UseMySql("server=localhost;user id=studentapi;password=student989$;database=carrent", ServerVersion.AutoDetect("server=localhost;user id=studentapi;password=student989$;database=carrent")));
+            services.AddDbContext<CarDbContext>(opt => opt.UseMySql("server=localhost;user id=studentapi;password=student989$;database=carrent", ServerVersion.AutoDetect("server=localhost;user id=studentapi;password=student989$;database=carrent")).EnableSensitiveDataLogging());
             services.AddTransient<ICarService, CarService>();
             services.AddTransient<ICarRepository, CarRepository>();
             services.AddControllers()

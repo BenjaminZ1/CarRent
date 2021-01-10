@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace CarRent.Common.Application
 {
-    public class ResponseDTO
+    public class ResponseDto
     {
         public int Id { get; set; }
         public int NumberOfRows { get; set; }
