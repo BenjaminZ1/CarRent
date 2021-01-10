@@ -26,6 +26,8 @@ namespace CarRent.Car.Application
             Specification.Year = x.Specification.Year;
             Specification.EngineDisplacement = x.Specification.EngineDisplacement;
             Specification.EnginePower = x.Specification.EnginePower;
+            Specification.CarSpecificationId = x.Specification.CarSpecificationId;
+            //Specification.Cars = x.Specification.Cars;
         }
     }
 }

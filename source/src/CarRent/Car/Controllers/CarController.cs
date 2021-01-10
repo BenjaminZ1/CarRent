@@ -27,6 +27,7 @@ namespace CarRent.Car.Controllers
             var data = _carService.GetCars();
             return Ok(data);
         }
+
         [HttpPost]
         public async Task<IActionResult> Save([FromBody] Domain.Car car)
         {

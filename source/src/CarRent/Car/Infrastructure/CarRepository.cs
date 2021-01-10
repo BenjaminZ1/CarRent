@@ -24,7 +24,9 @@ namespace CarRent.Car.Infrastructure
             var car = new Domain.Car();
             if (id != null)
             {
-                car = await _db.Car.FindAsync(id);
+                car = await _db.Car
+                    .Include(car => car.Specification)
+                    .FirstOrDefaultAsync(car => car.Id == id);
             }
             return car;
         }
