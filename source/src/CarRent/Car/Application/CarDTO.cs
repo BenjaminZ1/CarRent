@@ -13,12 +13,12 @@ namespace CarRent.Car.Application
         public string Model { get; set; }
 
         public int CarSpecificationId { get; set; }
-        public CarSpecification Specification { get; set; }
+        public CarSpecificationDto Specification { get; set; }
 
         public CarDto(Domain.Car x)
         {
             if(Specification == null)
-                this.Specification = new CarSpecification();
+                this.Specification = new CarSpecificationDto();
             Id = x.Id;
             Brand = x.Brand;
             Model = x.Model;
@@ -27,7 +27,7 @@ namespace CarRent.Car.Application
             Specification.EngineDisplacement = x.Specification.EngineDisplacement;
             Specification.EnginePower = x.Specification.EnginePower;
             Specification.CarSpecificationId = x.Specification.CarSpecificationId;
-            //Specification.Cars = x.Specification.Cars;
+
         }
     }
 }
