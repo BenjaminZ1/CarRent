@@ -33,11 +33,11 @@ namespace CarRent.Car.Infrastructure
 
         //public IQueryable<Domain.Car> GetCars => _db.Cars;
 
-        public List<Domain.Car> GetCars()
+        public async Task<List<Domain.Car>> GetCars()
         {
-            var cars =  _db.Car
+            var cars =  await _db.Car
                     .Include(c => c.Specification)
-                    .ToList();
+                    .ToListAsync();
             return cars;
         }
 

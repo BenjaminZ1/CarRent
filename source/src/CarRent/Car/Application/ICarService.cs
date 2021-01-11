@@ -10,7 +10,7 @@ namespace CarRent.Car.Application
     {
         //IQueryable<Domain.Car> GetCars();
         Task<CarDto> GetCar(int? id);
-        IEnumerable<CarDto> GetCars();
+        Task<IEnumerable<CarDto>> GetCars();
         Task<ResponseDto> Save(Domain.Car car);
         Task<ResponseDto> Delete(int? id);
     }

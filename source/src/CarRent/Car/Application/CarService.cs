@@ -31,9 +31,9 @@ namespace CarRent.Car.Application
             return mappedData;
         }
 
-        public IEnumerable<CarDto> GetCars()
+        public async Task<IEnumerable<CarDto>> GetCars()
         {
-            var data = _db.GetCars();
+            var data = await _db.GetCars();
             var mappedData = data.Select(x => (new CarDto(x)));
             return mappedData;
         }

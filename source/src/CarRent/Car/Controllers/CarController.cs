@@ -40,9 +40,9 @@ namespace CarRent.Car.Controllers
         }
 
         [HttpGet]
-        public IActionResult GetCars()
+        public async Task<IActionResult> GetCars()
         {
-            var data = _carService.GetCars();
+            var data = await _carService.GetCars();
             return Ok(data);
         }
 

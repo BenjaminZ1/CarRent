@@ -12,7 +12,7 @@ namespace CarRent.Car.Domain
     {
         Task<Car> GetCar(int? id);
         //IQueryable<Car> GetCars { get; }
-        List<Domain.Car> GetCars();
+        Task<List<Domain.Car>> GetCars();
         Task<ResponseDto> Save(Car car);
         Task<ResponseDto> Delete(int? id);
     }
