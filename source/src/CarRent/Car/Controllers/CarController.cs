@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using CarRent.Car.Application;
 using CarRent.Common.Application;
@@ -19,6 +20,23 @@ namespace CarRent.Car.Controllers
         public CarController(ICarService carService)
         {
             _carService = carService;
+        }
+
+        [HttpGet("{id}")]
+        public async Task<IActionResult> GetCar(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            var data = await _carService.GetCar(id);
+            if (data == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(data);
         }
 
         [HttpGet]

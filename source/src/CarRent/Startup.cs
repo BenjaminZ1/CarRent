@@ -31,8 +31,8 @@ namespace CarRent
         {
             //services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
             services.AddDbContext<CarDbContext>(opt => opt.UseMySql("server=localhost;user id=studentapi;password=student989$;database=carrent", ServerVersion.AutoDetect("server=localhost;user id=studentapi;password=student989$;database=carrent")).EnableSensitiveDataLogging());
+            services.AddScoped<ICarRepository, CarRepository>();
             services.AddTransient<ICarService, CarService>();
-            services.AddTransient<ICarRepository, CarRepository>();
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
