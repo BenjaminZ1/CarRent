@@ -12,5 +12,6 @@ namespace CarRent.Car.Application
         Task<CarDto> GetCar(int? id);
         IEnumerable<CarDto> GetCars();
         Task<ResponseDto> Save(Domain.Car car);
+        Task<ResponseDto> Delete(int? id);
     }
 }

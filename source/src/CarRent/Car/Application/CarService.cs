@@ -43,5 +43,11 @@ namespace CarRent.Car.Application
             var responseDto = await _db.Save(car);
             return responseDto;
         }
+
+        public async Task<ResponseDto> Delete(int? id)
+        {
+            var responseDto = await _db.Delete(id);
+            return responseDto;
+        }
     }
 }

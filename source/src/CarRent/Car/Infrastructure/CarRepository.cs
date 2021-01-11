@@ -36,7 +36,7 @@ namespace CarRent.Car.Infrastructure
         public List<Domain.Car> GetCars()
         {
             var cars =  _db.Car
-                    .Include(car => car.Specification)
+                    .Include(c => c.Specification)
                     .ToList();
             return cars;
         }
@@ -87,7 +87,7 @@ namespace CarRent.Car.Infrastructure
             return responseDto;
         }
 
-        public async Task<ResponseDto> DeleteAsync(int? id)
+        public async Task<ResponseDto> Delete(int? id)
         {
             ResponseDto responseDto = new ResponseDto();
             Domain.Car car = await GetCar(id);
@@ -97,6 +97,8 @@ namespace CarRent.Car.Infrastructure
                 try
                 {
                     _db.Car.Remove(car);
+                    _db.RemoveRange(car.Specification);
+
                     await _db.SaveChangesAsync();
 
                     responseDto.Flag = true;

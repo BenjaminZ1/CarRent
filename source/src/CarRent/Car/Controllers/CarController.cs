@@ -63,5 +63,21 @@ namespace CarRent.Car.Controllers
             return Ok(responseDto);
         }
 
+        [HttpDelete("{id}")]
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return BadRequest();
+            }
+
+            var responseDto = await _carService.Delete(id);
+            if (responseDto == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(responseDto);
+        }
     }
 }
