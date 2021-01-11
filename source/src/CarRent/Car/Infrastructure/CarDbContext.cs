@@ -23,11 +23,17 @@ namespace CarRent.Car.Infrastructure
             //    .HasForeignKey(e => e.Id)
             //    .OnDelete(DeleteBehavior.Restrict);
 
+            //modelBuilder.Entity<Domain.Car>()
+            //    .HasOne(c => c.Specification)
+            //    .WithMany(e => e.Cars)
+            //    .HasForeignKey(e => e.CarSpecificationId)
+            //    .OnDelete(DeleteBehavior.Restrict);
+
             modelBuilder.Entity<Domain.Car>()
                 .HasOne(c => c.Specification)
-                .WithMany(e => e.Cars)
-                .HasForeignKey(e => e.CarSpecificationId)
-                .OnDelete(DeleteBehavior.Restrict);
+                .WithOne(e => e.Car)
+                .HasForeignKey<CarSpecification>(e => e.CarRef)
+                .OnDelete(DeleteBehavior.Cascade);
 
         }
     }

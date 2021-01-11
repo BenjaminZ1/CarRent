@@ -12,7 +12,6 @@ namespace CarRent.Car.Domain
         public string Brand { get; set; }
         public string Model { get; set; }
 
-        public int CarSpecificationId { get; set; }
         public virtual CarSpecification Specification { get; set; }
 
         //public Car()
