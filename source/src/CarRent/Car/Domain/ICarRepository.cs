@@ -1,9 +1,6 @@
-﻿using System;
+﻿using CarRent.Common.Application;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
-using CarRent.Car.Application;
-using CarRent.Common.Application;
 
 
 namespace CarRent.Car.Domain

@@ -1,21 +1,20 @@
-﻿using System;
+﻿using CarRent.Car.Domain;
+using CarRent.Common.Application;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRent.Car.Domain;
-using CarRent.Common.Application;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.Car.Application
 {
     public class CarService : ICarService
     {
         private readonly ICarRepository _db;
+        private readonly ICarClassFactory _factory;
 
-        public CarService(ICarRepository db)
+        public CarService(ICarRepository db, ICarClassFactory factory)
         {
             _db = db;
+            _factory = factory;
         }
 
         //public IQueryable<Domain.Car> GetCars()
@@ -47,6 +46,8 @@ namespace CarRent.Car.Application
 
         public async Task<ResponseDto> Save(Domain.Car car)
         {
+            car.Class = _factory.GetCarClass(car.ClassId);
+            
             var responseDto = await _db.Save(car);
             return responseDto;
         }

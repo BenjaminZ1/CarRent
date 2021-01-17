@@ -1,19 +1,12 @@
-using Microsoft.AspNetCore.Builder;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Hosting;
-using Microsoft.Extensions.Logging;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using CarRent.Car.Application;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
+using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace CarRent
 {
@@ -32,7 +25,8 @@ namespace CarRent
             //services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
             services.AddDbContext<CarDbContext>(opt => opt.UseMySql("server=localhost;user id=studentapi;password=student989$;database=carrent", ServerVersion.AutoDetect("server=localhost;user id=studentapi;password=student989$;database=carrent")).EnableSensitiveDataLogging());
             services.AddScoped<ICarRepository, CarRepository>();
-            services.AddTransient<ICarService, CarService>();
+            services.AddSingleton<ICarClassFactory, CarClassFactory>();
+            services.AddScoped<ICarService, CarService>();
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

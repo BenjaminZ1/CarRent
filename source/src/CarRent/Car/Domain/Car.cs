@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CarRent.Car.Domain
+﻿namespace CarRent.Car.Domain
 {
     public class Car
     {
@@ -12,9 +6,13 @@ namespace CarRent.Car.Domain
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Type { get; set; }
+        public int ClassId { get; set; }
 
         public virtual CarSpecification Specification { get; set; }
 
+        public virtual int ClassRef { get; set; }
+
+        public virtual CarClass Class { get; set; }
         //public Car()
         //{
         //    if (Specification == null)

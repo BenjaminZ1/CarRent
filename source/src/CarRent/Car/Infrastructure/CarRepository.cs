@@ -1,16 +1,14 @@
-﻿using System;
+﻿using CarRent.Car.Domain;
+using CarRent.Common.Application;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRent.Car.Application;
-using CarRent.Car.Domain;
-using CarRent.Common.Application;
-using Microsoft.AspNetCore.Mvc.Infrastructure;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.Car.Infrastructure
 {
-    
+
     public class CarRepository : ICarRepository
     {
         private readonly CarDbContext _db;
@@ -35,8 +33,9 @@ namespace CarRent.Car.Infrastructure
 
         public async Task<List<Domain.Car>> GetCars()
         {
-            var cars =  await _db.Car
+            var cars = await _db.Car
                     .Include(c => c.Specification)
+                    .Include(c => c.Class)
                     .ToListAsync();
             return cars;
         }
@@ -96,7 +95,7 @@ namespace CarRent.Car.Infrastructure
                     await _db.SaveChangesAsync();
                     responseDto.Id = car.Id;
                     responseDto.Flag = true;
-                    responseDto.Message= "Has Been Updated.";
+                    responseDto.Message = "Has Been Updated.";
                 }
                 catch (Exception e)
                 {

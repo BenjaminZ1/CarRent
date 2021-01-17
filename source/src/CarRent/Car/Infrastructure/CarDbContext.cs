@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.Car.Infrastructure
 {
     public class CarDbContext : DbContext
     {
-        public CarDbContext(DbContextOptions<CarDbContext> options) : base(options){ }
+        public CarDbContext(DbContextOptions<CarDbContext> options) : base(options) { }
         public DbSet<Domain.Car> Car { get; set; }
         public DbSet<CarSpecification> Specification { get; set; }
+        public DbSet<CarClass> Class { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -29,11 +26,32 @@ namespace CarRent.Car.Infrastructure
             //    .HasForeignKey(e => e.CarSpecificationId)
             //    .OnDelete(DeleteBehavior.Restrict);
 
+            modelBuilder.Entity<LuxuryCarClass>()
+                .HasDiscriminator<string>("class_type")
+                .HasValue("class_luxury");
+
+            modelBuilder.Entity<MediumCarClass>()
+                .HasDiscriminator<string>("class_type")
+                .HasValue("class_medium");
+
+            modelBuilder.Entity<EasyCarClass>()
+                .HasDiscriminator<string>("class_type")
+                .HasValue("class_easy");
+
             modelBuilder.Entity<Domain.Car>()
+                .Ignore(c => c.ClassId)
                 .HasOne(c => c.Specification)
-                .WithOne(e => e.Car)
-                .HasForeignKey<CarSpecification>(e => e.CarRef)
+                .WithOne(s => s.Car)
+                .HasForeignKey<CarSpecification>(s => s.CarRef)
                 .OnDelete(DeleteBehavior.Cascade);
+
+            modelBuilder.Entity<Domain.Car>()
+                .Ignore(c => c.ClassId)
+                .HasOne(c => c.Class)
+                .WithMany(cls => cls.Cars)
+                .IsRequired(true)
+                .HasForeignKey(c => c.ClassRef);
+
 
         }
     }

@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 
 namespace CarRent.Car.Application
 {
@@ -13,11 +9,14 @@ namespace CarRent.Car.Application
         public string Model { get; set; }
         public string Type { get; set; }
         public CarSpecificationDto Specification { get; set; }
+        public CarClassDto Class { get; set; }
 
         public CarDto(Domain.Car x)
         {
-            if(Specification == null)
+            if (Specification == null)
                 this.Specification = new CarSpecificationDto();
+            if (Class == null)
+                this.Class = new CarClassDto();
             Id = x.Id;
             Brand = x.Brand;
             Model = x.Model;
@@ -26,7 +25,8 @@ namespace CarRent.Car.Application
             Specification.EngineDisplacement = x.Specification.EngineDisplacement;
             Specification.EnginePower = x.Specification.EnginePower;
             Specification.CarSpecificationId = x.Specification.Id;
-
+            Class.Description = x.Class.Description;
+            Class.PricePerDay = x.Class.PricePerDay;
         }
     }
 }

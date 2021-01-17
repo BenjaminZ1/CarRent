@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace CarRent.User.Application
+﻿namespace CarRent.User.Application
 {
     interface IUserService
     {
