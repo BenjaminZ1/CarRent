@@ -42,7 +42,8 @@ namespace CarRent.Car.Infrastructure
 
         public async Task<List<Domain.Car>> Search(string brand, string model)
         {
-            IQueryable<Domain.Car> query = _db.Car.Include(c => c.Specification);
+            IQueryable<Domain.Car> query = _db.Car.Include(c => c.Specification)
+                .Include(c => c.Class);
 
             if (!string.IsNullOrEmpty(brand) & string.IsNullOrEmpty(model))
             {
@@ -146,9 +147,7 @@ namespace CarRent.Car.Infrastructure
                 cls.Description == carClass.Description &&
                 cls.PricePerDay == carClass.PricePerDay);
 
-            if (findClass != null)
-                return findClass;
-            return carClass;
+            return findClass ?? carClass;
         }
 }
 }
