@@ -61,7 +61,6 @@ namespace CarRent.Car.Infrastructure
             return await query.ToListAsync();
         }
 
-
         public async Task<ResponseDto> Save(Domain.Car car)
         {
             ResponseDto responseDto = new ResponseDto();
