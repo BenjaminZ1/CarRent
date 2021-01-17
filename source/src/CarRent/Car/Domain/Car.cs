@@ -13,10 +13,5 @@
         public virtual int ClassRef { get; set; }
 
         public virtual CarClass Class { get; set; }
-        //public Car()
-        //{
-        //    if (Specification == null)
-        //        this.Specification = new CarSpecification();
-        //}
     }
 }

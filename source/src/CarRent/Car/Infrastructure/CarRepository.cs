@@ -29,8 +29,6 @@ namespace CarRent.Car.Infrastructure
             return car;
         }
 
-        //public IQueryable<Domain.Car> GetCars => _db.Cars;
-
         public async Task<List<Domain.Car>> GetCars()
         {
             var cars = await _db.Car

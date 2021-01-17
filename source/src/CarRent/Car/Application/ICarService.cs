@@ -6,7 +6,6 @@ namespace CarRent.Car.Application
 {
     public interface ICarService
     {
-        //IQueryable<Domain.Car> GetCars();
         Task<CarDto> GetCar(int? id);
         Task<IEnumerable<CarDto>> GetCars();
         Task<IEnumerable<CarDto>> Search(string brand, string model);
