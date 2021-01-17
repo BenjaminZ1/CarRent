@@ -14,18 +14,6 @@ namespace CarRent.Car.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            //modelBuilder.Entity<CarSpecification>()
-            //    .HasMany(c => c.Cars)
-            //    .WithOne(e => e.Specification)
-            //    .HasForeignKey(e => e.Id)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<Domain.Car>()
-            //    .HasOne(c => c.Specification)
-            //    .WithMany(e => e.Cars)
-            //    .HasForeignKey(e => e.CarSpecificationId)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
             modelBuilder.Entity<LuxuryCarClass>()
                 .HasDiscriminator<string>("class_type")
                 .HasValue("class_luxury");
@@ -50,7 +38,8 @@ namespace CarRent.Car.Infrastructure
                 .HasOne(c => c.Class)
                 .WithMany(cls => cls.Cars)
                 .IsRequired(true)
-                .HasForeignKey(c => c.ClassRef);
+                .HasForeignKey(c => c.ClassRef)
+                .OnDelete(DeleteBehavior.Restrict);
 
 
         }

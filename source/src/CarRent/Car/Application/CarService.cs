@@ -1,4 +1,5 @@
-﻿using CarRent.Car.Domain;
+﻿using System;
+using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using System.Collections.Generic;
 using System.Linq;
@@ -47,8 +48,18 @@ namespace CarRent.Car.Application
         public async Task<ResponseDto> Save(Domain.Car car)
         {
             car.Class = _factory.GetCarClass(car.ClassId);
+            ResponseDto responseDto;
+
+            if (car.Class == null)
+            {
+                responseDto = new ResponseDto() {Flag = false, Message =
+                    $"CarClass with ID {car.ClassId} is not allowed"
+                };
+
+                return responseDto;
+            }
             
-            var responseDto = await _db.Save(car);
+            responseDto = await _db.Save(car);
             return responseDto;
         }
 

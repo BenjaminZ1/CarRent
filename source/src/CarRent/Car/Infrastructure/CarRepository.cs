@@ -67,6 +67,7 @@ namespace CarRent.Car.Infrastructure
             {
                 try
                 {
+                    car.Class = await FindOrAddNewCarClass(car.Class);
                     await _db.AddAsync(car);
                     await _db.SaveChangesAsync();
 
@@ -137,5 +138,17 @@ namespace CarRent.Car.Infrastructure
 
             return responseDto;
         }
-    }
+
+        private async Task<CarClass> FindOrAddNewCarClass(CarClass carClass)
+        {
+            var findClass = await _db.Class.SingleOrDefaultAsync(cls => 
+                cls.Id == carClass.Id && 
+                cls.Description == carClass.Description &&
+                cls.PricePerDay == carClass.PricePerDay);
+
+            if (findClass != null)
+                return findClass;
+            return carClass;
+        }
+}
 }

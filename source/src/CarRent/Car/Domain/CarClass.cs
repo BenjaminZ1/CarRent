@@ -12,8 +12,9 @@ namespace CarRent.Car.Domain
 
     public class LuxuryCarClass : CarClass
     {
-        public LuxuryCarClass(decimal pricePerDay, string description)
+        public LuxuryCarClass(int id, decimal pricePerDay, string description)
         {
+            Id = id;
             PricePerDay = pricePerDay;
             Description = description;
         }
