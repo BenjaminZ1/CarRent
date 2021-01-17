@@ -6,6 +6,7 @@ using System.Runtime.InteropServices.WindowsRuntime;
 using System.Threading.Tasks;
 using CarRent.Car.Application;
 using CarRent.Common.Application;
+using Microsoft.AspNetCore.Http;
 
 // For more information on enabling Web API for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -23,27 +24,62 @@ namespace CarRent.Car.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<IActionResult> GetCar(int? id)
+        public async Task<ActionResult<CarDto>> GetCar(int? id)
         {
             if (id == null)
             {
                 return BadRequest();
             }
-
-            var data = await _carService.GetCar(id);
-            if (data == null)
+            try
             {
-                return NotFound();
+                var data = await _carService.GetCar(id);
+                if (data == null)
+                    return NotFound();
+                
+                return Ok(data);
             }
-
-            return Ok(data);
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         [HttpGet]
-        public async Task<IActionResult> GetCars()
+        public async Task<ActionResult<IEnumerable<CarDto>>> GetCars()
         {
-            var data = await _carService.GetCars();
-            return Ok(data);
+            try
+            {
+                var data = await _carService.GetCars();
+                if (data.Any())
+                    return Ok(data);
+
+                return NotFound();
+
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
+        }
+
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<CarDto>>> Search(string brand, string model)
+        {
+            try
+            {
+                var data = await _carService.Search(brand, model);
+                if (data.Any())
+                    return Ok(data);
+
+                return NotFound();
+            }
+            catch (Exception)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError,
+                    "Error retrieving data from the database");
+            }
         }
 
         [HttpPost]

@@ -38,6 +38,13 @@ namespace CarRent.Car.Application
             return mappedData;
         }
 
+        public async Task<IEnumerable<CarDto>> Search(string brand, string model)
+        {
+            var data = await _db.Search(brand, model);
+            var mappedData = data.Select(x => (new CarDto(x)));
+            return mappedData;
+        }
+
         public async Task<ResponseDto> Save(Domain.Car car)
         {
             var responseDto = await _db.Save(car);

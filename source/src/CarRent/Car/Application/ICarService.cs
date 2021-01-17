@@ -11,6 +11,7 @@ namespace CarRent.Car.Application
         //IQueryable<Domain.Car> GetCars();
         Task<CarDto> GetCar(int? id);
         Task<IEnumerable<CarDto>> GetCars();
+        Task<IEnumerable<CarDto>> Search(string brand, string model);
         Task<ResponseDto> Save(Domain.Car car);
         Task<ResponseDto> Delete(int? id);
     }

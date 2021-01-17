@@ -41,6 +41,27 @@ namespace CarRent.Car.Infrastructure
             return cars;
         }
 
+        public async Task<List<Domain.Car>> Search(string brand, string model)
+        {
+            IQueryable<Domain.Car> query = _db.Car.Include(c => c.Specification);
+
+            if (!string.IsNullOrEmpty(brand) & string.IsNullOrEmpty(model))
+            {
+                query = query.Where(c => c.Brand.Contains(brand));
+            }
+            else if (!string.IsNullOrEmpty(model) & string.IsNullOrEmpty(brand))
+            {
+                query = query.Where(c => c.Model.Contains(model));
+            }
+            else if (!string.IsNullOrEmpty(model) & !string.IsNullOrEmpty(brand))
+            {
+                query = query.Where(c => c.Brand.Contains(brand) & c.Model.Contains(model));
+            }
+
+            return await query.ToListAsync();
+        }
+
+
         public async Task<ResponseDto> Save(Domain.Car car)
         {
             ResponseDto responseDto = new ResponseDto();
