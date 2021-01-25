@@ -1,6 +1,8 @@
 using CarRent.Car.Application;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
+using CarRent.User.Domain;
+using CarRent.User.Infrastructure;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -27,6 +29,7 @@ namespace CarRent
             services.AddScoped<ICarRepository, CarRepository>();
             services.AddSingleton<ICarClassFactory, CarClassFactory>();
             services.AddScoped<ICarService, CarService>();
+            services.AddScoped<IUserRepository, UserRepository>();
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);
