@@ -20,14 +20,14 @@ namespace CarRent.Car.Application
 
         public async Task<CarDto> GetCar(int? id)
         {
-            var data = await _db.GetCar(id);
+            var data = await _db.Get(id);
             var mappedData = new CarDto(data);
             return mappedData;
         }
 
         public async Task<IEnumerable<CarDto>> GetCars()
         {
-            var data = await _db.GetCars();
+            var data = await _db.GetAll();
             var mappedData = data.Select(x => (new CarDto(x)));
             return mappedData;
         }

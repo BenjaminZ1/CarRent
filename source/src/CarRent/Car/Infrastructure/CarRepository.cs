@@ -17,19 +17,20 @@ namespace CarRent.Car.Infrastructure
         {
             _db = db;
         }
-        public async Task<Domain.Car> GetCar(int? id)
+        public async Task<Domain.Car> Get(int? id)
         {
             var car = new Domain.Car();
             if (id != null)
             {
                 car = await _db.Car
                     .Include(c => c.Specification)
+                    .Include(c => c.Class)
                     .FirstOrDefaultAsync(c => c.Id == id);
             }
             return car;
         }
 
-        public async Task<List<Domain.Car>> GetCars()
+        public async Task<List<Domain.Car>> GetAll()
         {
             var cars = await _db.Car
                     .Include(c => c.Specification)
@@ -82,7 +83,7 @@ namespace CarRent.Car.Infrastructure
             }
             else if (car.Id != 0)
             {
-                Domain.Car entity = await GetCar(car.Id);
+                Domain.Car entity = await Get(car.Id);
                 entity.Id = car.Id;
                 entity.Brand = car.Brand;
                 entity.Model = car.Model;
@@ -109,7 +110,7 @@ namespace CarRent.Car.Infrastructure
         public async Task<ResponseDto> Delete(int? id)
         {
             ResponseDto responseDto = new ResponseDto();
-            Domain.Car car = await GetCar(id);
+            Domain.Car car = await Get(id);
 
             if (car != null)
             {
