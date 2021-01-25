@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using CarRent.Common.Application;
 using CarRent.User.Domain;
+using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.User.Infrastructure
 {
@@ -14,9 +15,15 @@ namespace CarRent.User.Infrastructure
             _db = db;
         }
 
-        public Task<Domain.User> Get(int? id)
+        public async Task<Domain.User> Get(int? id)
         {
-            throw new System.NotImplementedException();
+            var user = new Domain.User();
+            if (id != null)
+            {
+                user = await _db.User
+                    .FirstOrDefaultAsync(c => c.Id == id);
+            }
+            return user;
         }
 
         public Task<List<Domain.User>> GetAll()

@@ -1,6 +1,6 @@
 ﻿namespace CarRent.User.Application
 {
-    public class UserDTO
+    public class UserDto
     {
     }
 }

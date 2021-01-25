@@ -30,7 +30,7 @@ namespace CarRent.Car.Controllers
             }
             try
             {
-                var data = await _carService.GetCar(id);
+                var data = await _carService.Get(id);
                 if (data == null)
                     return NotFound();
 
@@ -48,7 +48,7 @@ namespace CarRent.Car.Controllers
         {
             try
             {
-                var data = await _carService.GetCars();
+                var data = await _carService.GetAll();
                 if (data.Any())
                     return Ok(data);
 

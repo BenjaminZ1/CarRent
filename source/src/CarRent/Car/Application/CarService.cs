@@ -18,14 +18,14 @@ namespace CarRent.Car.Application
             _factory = factory;
         }
 
-        public async Task<CarDto> GetCar(int? id)
+        public async Task<CarDto> Get(int? id)
         {
             var data = await _db.Get(id);
             var mappedData = new CarDto(data);
             return mappedData;
         }
 
-        public async Task<IEnumerable<CarDto>> GetCars()
+        public async Task<IEnumerable<CarDto>> GetAll()
         {
             var data = await _db.GetAll();
             var mappedData = data.Select(x => (new CarDto(x)));
