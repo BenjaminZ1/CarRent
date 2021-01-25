@@ -21,7 +21,7 @@ namespace CarRent.User.Infrastructure
             if (id != null)
             {
                 user = await _db.User
-                    .FirstOrDefaultAsync(c => c.Id == id);
+                    .FirstOrDefaultAsync(u => u.Id == id);
             }
             return user;
         }
