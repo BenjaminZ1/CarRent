@@ -1,14 +1,15 @@
-﻿using Microsoft.EntityFrameworkCore.Metadata;
+﻿using System;
+using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarRent.Migrations
 {
-    public partial class AddCarTables : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Class",
+                name: "CarClass",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -19,7 +20,24 @@ namespace CarRent.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Class", x => x.Id);
+                    table.PrimaryKey("PK_CarClass", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "User",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    LastName = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Street = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Place = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
+                    Plz = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_User", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
@@ -37,15 +55,36 @@ namespace CarRent.Migrations
                 {
                     table.PrimaryKey("PK_Car", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Car_Class_ClassRef",
+                        name: "FK_Car_CarClass_ClassRef",
                         column: x => x.ClassRef,
-                        principalTable: "Class",
+                        principalTable: "CarClass",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Specification",
+                name: "Reservation",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("MySql:ValueGenerationStrategy", MySqlValueGenerationStrategy.IdentityColumn),
+                    StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
+                    ClassRef = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Reservation", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Reservation_CarClass_ClassRef",
+                        column: x => x.ClassRef,
+                        principalTable: "CarClass",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.SetNull);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CarSpecification",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
@@ -57,9 +96,9 @@ namespace CarRent.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Specification", x => x.Id);
+                    table.PrimaryKey("PK_CarSpecification", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Specification_Car_CarRef",
+                        name: "FK_CarSpecification_Car_CarRef",
                         column: x => x.CarRef,
                         principalTable: "Car",
                         principalColumn: "Id",
@@ -72,22 +111,34 @@ namespace CarRent.Migrations
                 column: "ClassRef");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Specification_CarRef",
-                table: "Specification",
+                name: "IX_CarSpecification_CarRef",
+                table: "CarSpecification",
                 column: "CarRef",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Reservation_ClassRef",
+                table: "Reservation",
+                column: "ClassRef",
                 unique: true);
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Specification");
+                name: "CarSpecification");
+
+            migrationBuilder.DropTable(
+                name: "Reservation");
+
+            migrationBuilder.DropTable(
+                name: "User");
 
             migrationBuilder.DropTable(
                 name: "Car");
 
             migrationBuilder.DropTable(
-                name: "Class");
+                name: "CarClass");
         }
     }
 }

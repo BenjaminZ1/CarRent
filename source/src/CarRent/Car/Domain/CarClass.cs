@@ -8,6 +8,8 @@ namespace CarRent.Car.Domain
         public decimal PricePerDay { get; set; }
         public string Description { get; set; }
         public virtual ICollection<Car> Cars { get; set; }
+        public virtual int ReservationRef { get; set; }
+        public virtual Reservation.Domain.Reservation Reservation { get; set; }
     }
 
     public class LuxuryCarClass : CarClass
