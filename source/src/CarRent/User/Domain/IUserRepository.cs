@@ -8,7 +8,7 @@ namespace CarRent.User.Domain
     {
         Task<User> Get(int? id);
         Task<List<User>> GetAll();
-        Task<List<User>> Search(string name, string lastname);
+        Task<List<User>> Search(int? id, string name, string lastname);
         Task<ResponseDto> Save(User user);
         Task<ResponseDto> Delete(int? id);
     }

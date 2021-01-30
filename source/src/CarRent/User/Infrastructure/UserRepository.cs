@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CarRent.Common.Application;
 using CarRent.User.Domain;
@@ -26,24 +28,121 @@ namespace CarRent.User.Infrastructure
             return user;
         }
 
-        public Task<List<Domain.User>> GetAll()
+        public async Task<List<Domain.User>> GetAll()
         {
-            throw new System.NotImplementedException();
+            var users = await _db.User.ToListAsync();
+            return users;
         }
 
-        public Task<List<Domain.User>> Search(string name, string lastname)
+        public async Task<List<Domain.User>> Search(int? id, string name, string lastname)
         {
-            throw new System.NotImplementedException();
+            IQueryable<Domain.User> query = _db.User;
+
+            if (id != null & string.IsNullOrEmpty(name) & string.IsNullOrEmpty(lastname))
+            {
+                query = query.Where(u => u.Id == id);
+            }
+            else if (id != null & !string.IsNullOrEmpty(name) & string.IsNullOrEmpty(lastname))
+            {
+                query = query.Where(u => u.Id == id & u.Name.Contains(name));
+            }
+            else if (id != null & string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
+            {
+                query = query.Where(u => u.Id == id & u.Name.Contains(lastname));
+            }
+            else if (id == null & !string.IsNullOrEmpty(name) & string.IsNullOrEmpty(lastname))
+            {
+                query = query.Where(u => u.Name.Contains(name));
+            }
+            else if (id == null & string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
+            {
+                query = query.Where(u => u.Name.Contains(lastname));
+            }
+            else if (id != null & !string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
+            {
+                query = query.Where(u => u.Id == id & u.Name.Contains(name) & u.LastName.Contains(lastname));
+            }
+
+            return await query.ToListAsync();
         }
 
-        public Task<ResponseDto> Save(Domain.User user)
+        public async Task<ResponseDto> Save(Domain.User user)
         {
-            throw new System.NotImplementedException();
+            ResponseDto responseDto = new ResponseDto();
+            if (user.Id == 0)
+            {
+                try
+                {
+
+                    await _db.AddAsync(user);
+                    await _db.SaveChangesAsync();
+
+                    responseDto.Id = user.Id;
+                    responseDto.Flag = true;
+                    responseDto.Message = "Has Been Added.";
+                }
+                catch (Exception e)
+                {
+                    responseDto.Flag = false;
+                    responseDto.Message = e.ToString();
+                }
+            }
+            else if (user.Id != 0)
+            {
+                Domain.User entity = await Get(user.Id);
+                entity.Id = user.Id;
+                entity.Name = user.Name;
+                entity.LastName = user.LastName;
+                entity.Street = user.Street;
+                entity.Place = user.Place;
+                entity.Plz = user.Plz;
+
+                try
+                {
+                    await _db.SaveChangesAsync();
+                    responseDto.Id = user.Id;
+                    responseDto.Flag = true;
+                    responseDto.Message = "Has Been Updated.";
+                }
+                catch (Exception e)
+                {
+                    responseDto.Flag = false;
+                    responseDto.Message = e.ToString();
+                }
+            }
+            return responseDto;
         }
 
-        public Task<ResponseDto> Delete(int? id)
+        public async Task<ResponseDto> Delete(int? id)
         {
-            throw new System.NotImplementedException();
+            ResponseDto responseDto = new ResponseDto();
+            Domain.User user = await Get(id);
+
+            if (user != null)
+            {
+                try
+                {
+                    _db.User.Remove(user);
+
+                    await _db.SaveChangesAsync();
+
+                    responseDto.Flag = true;
+                    responseDto.Message = "Has been Deleted.";
+                }
+                catch (Exception e)
+                {
+                    responseDto.Flag = false;
+                    responseDto.Message = e.ToString();
+                }
+            }
+            else
+            {
+                responseDto.Flag = false;
+                responseDto.Message = "User does not exist.";
+            }
+
+            return responseDto;
         }
+    }
     }
 }
