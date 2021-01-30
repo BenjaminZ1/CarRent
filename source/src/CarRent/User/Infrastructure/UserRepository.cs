@@ -48,7 +48,7 @@ namespace CarRent.User.Infrastructure
             }
             else if (id != null & string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
             {
-                query = query.Where(u => u.Id == id & u.Name.Contains(lastname));
+                query = query.Where(u => u.Id == id & u.LastName.Contains(lastname));
             }
             else if (id == null & !string.IsNullOrEmpty(name) & string.IsNullOrEmpty(lastname))
             {
@@ -56,7 +56,7 @@ namespace CarRent.User.Infrastructure
             }
             else if (id == null & string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
             {
-                query = query.Where(u => u.Name.Contains(lastname));
+                query = query.Where(u => u.LastName.Contains(lastname));
             }
             else if (id != null & !string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
             {
