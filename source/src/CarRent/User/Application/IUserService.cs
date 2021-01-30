@@ -8,7 +8,7 @@ namespace CarRent.User.Application
     {
         Task<UserDto> Get(int? id);
         Task<IEnumerable<UserDto>> GetAll();
-        Task<IEnumerable<UserDto>> Search(string brand, string model);
+        Task<IEnumerable<UserDto>> Search(int? id, string name, string lastname);
         Task<ResponseDto> Save(Domain.User car);
         Task<ResponseDto> Delete(int? id);
     }

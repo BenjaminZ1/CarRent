@@ -144,5 +144,4 @@ namespace CarRent.User.Infrastructure
             return responseDto;
         }
     }
-    }
 }

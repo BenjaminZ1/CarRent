@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using CarRent.Common.Application;
 using CarRent.User.Domain;
@@ -12,29 +13,37 @@ namespace CarRent.User.Application
         {
             _db = db;
         }
-        public Task<UserDto> Get(int? id)
+        public async Task<UserDto> Get(int? id)
         {
-            throw new System.NotImplementedException();
+            var data = await _db.Get(id);
+            var mappedData = new UserDto(data);
+            return mappedData;
         }
 
-        public Task<IEnumerable<UserDto>> GetAll()
+        public async Task<IEnumerable<UserDto>> GetAll()
         {
-            throw new System.NotImplementedException();
+            var data = await _db.GetAll();
+            var mappedData = data.Select(x => (new UserDto(x)));
+            return mappedData;
         }
 
-        public Task<IEnumerable<UserDto>> Search(string brand, string model)
+        public async Task<IEnumerable<UserDto>> Search(int? id, string name, string lastname)
         {
-            throw new System.NotImplementedException();
+            var data = await _db.Search(id, name, lastname);
+            var mappedData = data.Select(x => (new UserDto(x)));
+            return mappedData;
         }
 
-        public Task<ResponseDto> Save(Domain.User car)
+        public async Task<ResponseDto> Save(Domain.User user)
         {
-            throw new System.NotImplementedException();
+            var responseDto = await _db.Save(user);
+            return responseDto;
         }
 
-        public Task<ResponseDto> Delete(int? id)
+        public async Task<ResponseDto> Delete(int? id)
         {
-            throw new System.NotImplementedException();
+            var responseDto = await _db.Delete(id);
+            return responseDto;
         }
     }
 }
