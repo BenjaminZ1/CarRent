@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using CarRent.Reservation.Domain;
 using Microsoft.EntityFrameworkCore;
@@ -29,7 +30,10 @@ namespace CarRent.Reservation.Infrastructure
 
         public async Task<List<Domain.Reservation>> GetAll()
         {
-            var users = await _db.Reservation.ToListAsync();
+            var users = await _db.Reservation
+                .Include(r => r.Class)
+                .Include(r => r.User)
+                .ToListAsync();
             return users;
         }
 
@@ -40,7 +44,8 @@ namespace CarRent.Reservation.Infrastructure
             {
                 try
                 {
-
+                    reservation.Class = await FindCarClass(reservation.ClassRef);
+                    reservation.User = await FindUser(reservation.UserRef);
                     await _db.AddAsync(reservation);
                     await _db.SaveChangesAsync();
 
@@ -107,6 +112,22 @@ namespace CarRent.Reservation.Infrastructure
             }
 
             return responseDto;
+        }
+
+        private async Task<CarClass> FindCarClass(int? id)
+        {
+            var findClass = await _db.Class.SingleOrDefaultAsync(cls =>
+                cls.Id == id);
+
+            return findClass;
+        }
+
+        private async Task<User.Domain.User> FindUser(int? id)
+        {
+            var findUser = await _db.User.SingleOrDefaultAsync(u =>
+                u.Id == id);
+
+            return findUser;
         }
     }
 }

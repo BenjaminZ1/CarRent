@@ -9,6 +9,8 @@
         public string Place { get; set; }
         public string Plz { get; set; }
 
+        public UserDto() {}
+
         public UserDto(Domain.User user)
         {
             Id = user.Id;

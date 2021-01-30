@@ -2,6 +2,8 @@ using CarRent.Car.Application;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
 using CarRent.Common.Infrastructure;
+using CarRent.Reservation.Application;
+using CarRent.Reservation.Domain;
 using CarRent.Reservation.Infrastructure;
 using CarRent.User.Application;
 using CarRent.User.Domain;
@@ -50,6 +52,8 @@ namespace CarRent
                 opt.UseMySql(Configuration.GetConnectionString("CarRentDatabase"),
                         ServerVersion.AutoDetect(Configuration.GetConnectionString("CarRentDatabase")))
                     .EnableSensitiveDataLogging());
+            services.AddScoped<IReservationRepository, ReservationRepository>();
+            services.AddScoped<IReservationService, ReservationService>();
 
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
