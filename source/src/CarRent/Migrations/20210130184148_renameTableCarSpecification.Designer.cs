@@ -3,14 +3,16 @@ using System;
 using CarRent.Common.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace CarRent.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    partial class BaseDbContextModelSnapshot : ModelSnapshot
+    [Migration("20210130184148_renameTableCarSpecification")]
+    partial class renameTableCarSpecification
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -60,7 +62,7 @@ namespace CarRent.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Class");
+                    b.ToTable("CarClass");
 
                     b.HasDiscriminator<string>("class_type").HasValue("CarClass");
                 });
@@ -144,8 +146,6 @@ namespace CarRent.Migrations
                 {
                     b.HasBaseType("CarRent.Car.Domain.CarClass");
 
-                    b.ToTable("Class");
-
                     b.HasDiscriminator().HasValue("class_easy");
                 });
 
@@ -153,16 +153,12 @@ namespace CarRent.Migrations
                 {
                     b.HasBaseType("CarRent.Car.Domain.CarClass");
 
-                    b.ToTable("Class");
-
                     b.HasDiscriminator().HasValue("class_luxury");
                 });
 
             modelBuilder.Entity("CarRent.Car.Domain.MediumCarClass", b =>
                 {
                     b.HasBaseType("CarRent.Car.Domain.CarClass");
-
-                    b.ToTable("Class");
 
                     b.HasDiscriminator().HasValue("class_medium");
                 });

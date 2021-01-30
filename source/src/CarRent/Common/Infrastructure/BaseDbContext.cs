@@ -12,11 +12,7 @@ namespace CarRent.Common.Infrastructure
     {
         public BaseDbContext(DbContextOptions<BaseDbContext> options) : base(options) { }
         protected BaseDbContext(DbContextOptions options) : base(options) { }
-        //public DbSet<Car.Domain.Car> Car { get; set; }
-        //public DbSet<CarSpecification> Specification { get; set; }
-        //public DbSet<CarClass> Class { get; set; }
-        //public DbSet<User.Domain.User> User { get; set; }
-        //public DbSet<Reservation.Domain.Reservation> Reservation { get; set; }
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

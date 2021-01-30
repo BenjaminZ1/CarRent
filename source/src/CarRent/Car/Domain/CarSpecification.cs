@@ -1,5 +1,8 @@
-﻿namespace CarRent.Car.Domain
+﻿using System.ComponentModel.DataAnnotations.Schema;
+
+namespace CarRent.Car.Domain
 {
+    [Table("Specification")]
     public class CarSpecification
     {
         public int Id { get; set; }

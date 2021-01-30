@@ -1,7 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRent.Car.Domain
 {
+    [Table("Class")]
     public abstract class CarClass
     {
         public int Id { get; set; }

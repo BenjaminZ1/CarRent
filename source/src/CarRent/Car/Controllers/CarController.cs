@@ -55,7 +55,7 @@ namespace CarRent.Car.Controllers
                 return NotFound();
 
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return StatusCode(StatusCodes.Status500InternalServerError,
                     "Error retrieving data from the database");
