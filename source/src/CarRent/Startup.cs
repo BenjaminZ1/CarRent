@@ -1,6 +1,7 @@
 using CarRent.Car.Application;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
+using CarRent.User.Application;
 using CarRent.User.Domain;
 using CarRent.User.Infrastructure;
 using Microsoft.AspNetCore.Builder;
@@ -36,6 +37,7 @@ namespace CarRent
                         ServerVersion.AutoDetect(Configuration.GetConnectionString("CarRentDatabase")))
                         .EnableSensitiveDataLogging());
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
             services.AddControllers()
                 .AddNewtonsoftJson(options =>
                     options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore);

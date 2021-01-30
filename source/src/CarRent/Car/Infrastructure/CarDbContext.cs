@@ -13,6 +13,7 @@ namespace CarRent.Car.Infrastructure
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Ignore<User.Domain.User>();
 
             modelBuilder.Entity<LuxuryCarClass>()
                 .HasDiscriminator<string>("class_type")

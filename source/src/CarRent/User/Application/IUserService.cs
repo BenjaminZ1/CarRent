@@ -4,7 +4,7 @@ using CarRent.Common.Application;
 
 namespace CarRent.User.Application
 {
-    interface IUserService
+    public interface IUserService
     {
         Task<UserDto> Get(int? id);
         Task<IEnumerable<UserDto>> GetAll();

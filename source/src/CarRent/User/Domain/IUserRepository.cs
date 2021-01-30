@@ -4,7 +4,7 @@ using CarRent.Common.Application;
 
 namespace CarRent.User.Domain
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         Task<User> Get(int? id);
         Task<List<User>> GetAll();

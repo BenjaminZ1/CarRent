@@ -7,6 +7,6 @@
         public string LastName { get; set; }
         public string Street { get; set; }
         public string Place { get; set; }
-        public string PLZ { get; set; }
+        public string Plz { get; set; }
     }
 }
