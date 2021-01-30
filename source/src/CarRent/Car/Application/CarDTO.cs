@@ -13,10 +13,10 @@ namespace CarRent.Car.Application
 
         public CarDto(Domain.Car x)
         {
-            if (Specification == null)
-                this.Specification = new CarSpecificationDto();
-            if (Class == null)
-                this.Class = new CarClassDto();
+           
+            this.Specification ??= new CarSpecificationDto();
+            this.Class ??= new CarClassDto();
+
             Id = x.Id;
             Brand = x.Brand;
             Model = x.Model;
