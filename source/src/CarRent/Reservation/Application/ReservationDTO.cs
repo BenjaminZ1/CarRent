@@ -25,13 +25,20 @@ namespace CarRent.Reservation.Application
             EndDate = reservation.EndDate;
             TotalDays = reservation.TotalDays();
             TotalFee = reservation.TotalFee();
-            Class.Description = reservation.Class.Description;
-            Class.PricePerDay = reservation.Class.PricePerDay;
-            User.Name = reservation.User.Name;
-            User.LastName = reservation.User.LastName;
-            User.Place = reservation.User.Place;
-            User.Street = reservation.User.Street;
-            User.Plz = reservation.User.Plz;
+            if (reservation.Class != null)
+            {
+                Class.Description = reservation.Class.Description;
+                Class.PricePerDay = reservation.Class.PricePerDay;
+            }
+
+            if (reservation.User != null)
+            {
+                User.Name = reservation.User.Name;
+                User.LastName = reservation.User.LastName;
+                User.Place = reservation.User.Place;
+                User.Street = reservation.User.Street;
+                User.Plz = reservation.User.Plz;
+            }
         }
     }
 }
