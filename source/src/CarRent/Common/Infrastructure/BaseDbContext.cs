@@ -55,6 +55,12 @@ namespace CarRent.Common.Infrastructure
                 .WithOne(c => c.Reservation)
                 .HasForeignKey<Reservation.Domain.Reservation>(r => r.ClassRef)
                 .OnDelete(DeleteBehavior.SetNull);
+
+            modelBuilder.Entity<Reservation.Domain.Reservation>()
+                .HasOne(r => r.User)
+                .WithOne(u => u.Reservation)
+                .HasForeignKey<Reservation.Domain.Reservation>(r => r.UserRef)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 

@@ -21,6 +21,7 @@ namespace CarRent.Reservation.Infrastructure
             {
                 reservation = await _db.Reservation
                     .Include(r => r.Class)
+                    .Include(r => r.User)
                     .FirstOrDefaultAsync(r => r.Id == id);
             }
             return reservation;

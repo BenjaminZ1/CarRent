@@ -8,5 +8,6 @@
         public string Street { get; set; }
         public string Place { get; set; }
         public string Plz { get; set; }
+        public virtual Reservation.Domain.Reservation Reservation { get; set; }
     }
 }
