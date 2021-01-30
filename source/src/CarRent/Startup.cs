@@ -1,6 +1,7 @@
 using CarRent.Car.Application;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
+using CarRent.Common.Infrastructure;
 using CarRent.User.Application;
 using CarRent.User.Domain;
 using CarRent.User.Infrastructure;
@@ -26,6 +27,10 @@ namespace CarRent
         public void ConfigureServices(IServiceCollection services)
         {
             //services.AddDbContext<CarDbContext>(opt => opt.UseInMemoryDatabase("Test"));
+            //services.AddDbContext<BaseDbContext>(opt => opt.UseMySql(Configuration.GetConnectionString("CarRentDatabase"),
+            //        ServerVersion.AutoDetect(Configuration.GetConnectionString("CarRentDatabase")))
+            //    .EnableSensitiveDataLogging());
+
             services.AddDbContext<CarDbContext>(opt => opt.UseMySql(Configuration.GetConnectionString("CarRentDatabase"),
                         ServerVersion.AutoDetect(Configuration.GetConnectionString("CarRentDatabase")))
                         .EnableSensitiveDataLogging());
@@ -45,14 +50,14 @@ namespace CarRent
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, CarDbContext db)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
             }
 
-            db.Database.EnsureCreated();
+            //db.Database.EnsureCreated();
 
             app.UseHttpsRedirection();
 

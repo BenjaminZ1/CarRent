@@ -1,7 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 
-namespace CarRent.Migrations
+namespace CarRent.Migrations.UserDb
 {
     public partial class AddUserTable : Migration
     {

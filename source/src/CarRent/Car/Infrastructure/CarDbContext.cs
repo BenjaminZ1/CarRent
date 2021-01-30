@@ -1,4 +1,5 @@
 ﻿using CarRent.Car.Domain;
+using CarRent.Common.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.Car.Infrastructure
@@ -41,7 +42,6 @@ namespace CarRent.Car.Infrastructure
                 .IsRequired(true)
                 .HasForeignKey(c => c.ClassRef)
                 .OnDelete(DeleteBehavior.Restrict);
-
 
         }
     }

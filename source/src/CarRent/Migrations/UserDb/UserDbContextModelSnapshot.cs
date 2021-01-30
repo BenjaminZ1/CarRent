@@ -2,16 +2,14 @@
 using CarRent.User.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
-namespace CarRent.Migrations
+namespace CarRent.Migrations.UserDb
 {
     [DbContext(typeof(UserDbContext))]
-    [Migration("20210130141310_AddUserTable")]
-    partial class AddUserTable
+    partial class UserDbContextModelSnapshot : ModelSnapshot
     {
-        protected override void BuildTargetModel(ModelBuilder modelBuilder)
+        protected override void BuildModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
