@@ -46,7 +46,6 @@ namespace CarRent.Tests
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
         }
-
     }
     [TestFixture]
     class CarRespositoryTests
@@ -100,7 +99,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Save_Car_ReturnsCorrectResult()
+        public async Task Save_WhenNew_ReturnsCorrectResult()
         {
             //arrange
             ResponseDto expectedResult = new ResponseDto
@@ -120,12 +119,7 @@ namespace CarRent.Tests
                 Brand = "TestBrand",
                 Model = "TestModel",
                 Type = "TestType",
-                Specification = new CarSpecification
-                {
-                    EngineDisplacement = 1299,
-                    EnginePower = 150,
-                    Year = 2015
-                },
+
                 Class = carClassFactory.GetCarClass(1)
             };
 
@@ -137,7 +131,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Save_ExistingCar_ReturnsCorrectResult()
+        public async Task Save_WhenExisting_ReturnsCorrectResult()
         {
             //arrange
             AddDbTestEntries();
@@ -238,7 +232,6 @@ namespace CarRent.Tests
         public async Task Delete_NotExistingCar_ReturnsCorrectResult()
         {
             //arrange
-
             int id = 1;
             ResponseDto expectedResult = new ResponseDto
             {
@@ -256,6 +249,61 @@ namespace CarRent.Tests
             var result = await carRepository.Delete(id);
 
             result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Search_CarBrandAndModel_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            string brand = "TestBrand";
+            string model = "TestModel";
+
+
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            //act
+            var result = await carRepository.Search(brand, model);
+
+            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Count.Should().Be(1);
+        }
+
+        [Test]
+        public async Task Search_CarBrand_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            string brand = "TestBrand";
+
+
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            //act
+            var result = await carRepository.Search(brand, null);
+
+            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Count.Should().Be(1);
+        }
+
+        [Test]
+        public async Task Search_CarModel_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            string model = "TestModel";
+
+
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            //act
+            var result = await carRepository.Search(null, model);
+
+            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Count.Should().Be(1);
         }
     }
 }
