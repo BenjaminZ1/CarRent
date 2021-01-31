@@ -2,11 +2,14 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
+using System.Threading.Tasks;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
+using CarRent.Common.Application;
 using CarRent.Common.Infrastructure;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
 using NUnit.Framework;
 
@@ -16,7 +19,7 @@ namespace CarRent.Tests
     public class SetupClass
     {
         private IConfigurationRoot _configuration;
-        private DbContextOptions<BaseDbContext> _options;
+        private static DbContextOptions<BaseDbContext> _options;
 
         [OneTimeSetUp]
         public void BaseDbContext_CreateDb()
@@ -37,6 +40,13 @@ namespace CarRent.Tests
             context.Database.EnsureCreated();
         }
 
+        public static void ResetDb()
+        {
+            using var context = new BaseDbContext(_options);
+            context.Database.EnsureDeleted();
+            context.Database.EnsureCreated();
+        }
+
     }
     [TestFixture]
     class CarRespositoryTests
@@ -45,12 +55,14 @@ namespace CarRent.Tests
         private DbContextOptions<CarDbContext> _options;
         private IConfigurationBuilder _builder;
 
-        [SetUp]
-        public void CarDbContext_AddTestEntries()
+        [OneTimeSetUp]
+        public void CarDbContext_BuildDbContext()
         {
-                _builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+            SetupClass.ResetDb();
+
+            _builder = new ConfigurationBuilder()
+            .SetBasePath(Directory.GetCurrentDirectory())
+            .AddJsonFile("appsettings.json");
 
             _configuration = _builder.Build();
 
@@ -59,6 +71,27 @@ namespace CarRent.Tests
                     ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
                 .Options;
 
+            //var carClassFactory = new CarClassFactory();
+
+            //using var context = new CarDbContext(_options);
+            //context.Car.Add(new Car.Domain.Car
+            //{
+            //    Brand = "TestBrand",
+            //    Model = "TestModel",
+            //    Type = "TestType",
+            //    Specification = new CarSpecification
+            //    {
+            //        EngineDisplacement = 1299,
+            //        EnginePower = 150,
+            //        Year = 2015
+            //    },
+            //    Class = carClassFactory.GetCarClass(1)
+            //});
+            //context.SaveChanges();
+        }
+
+        private void AddDbTestEntries()
+        {
             var carClassFactory = new CarClassFactory();
 
             using var context = new CarDbContext(_options);
@@ -78,62 +111,114 @@ namespace CarRent.Tests
             context.SaveChanges();
         }
 
+        //[Test]
+        //public void Get_RetrieveSpecificCar_ReturnsCorrectResult()
+        //{
+        //    //arrange
+        //    Car.Domain.Car car = new Car.Domain.Car();
+
+        //    _builder = new ConfigurationBuilder()
+        //        .SetBasePath(Directory.GetCurrentDirectory())
+        //        .AddJsonFile("appsettings.json");
+
+        //    _configuration = _builder.Build();
+
+        //    _options = new DbContextOptionsBuilder<CarDbContext>()
+        //        .UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
+        //            ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
+        //        .Options;
+
+        //    int id = 1;
+        //    var expectedResult = new Car.Domain.Car
+        //    {
+        //        Id = id,
+        //        Brand = "TestBrand",
+        //        Model = "TestModel",
+        //        Type = "TestType",
+        //    };
+
+        //    //act
+        //    using var context = new CarDbContext(_options);
+        //    var dbResult = context.Car
+        //        .FirstOrDefaultAsync(c => c.Id == id);
+
+        //    car.Id = dbResult.Result.Id;
+        //    car.Brand = dbResult.Result.Brand;
+        //    car.Model = dbResult.Result.Model;
+        //    car.Type = dbResult.Result.Type;
+
+        //    //assert
+        //    car.Should().BeEquivalentTo(expectedResult);
+        //}
+
         [Test]
-        public void Get_RetrieveSpecificCar_ReturnsCorrectResult()
+        public async Task Save_Car_ReturnsCorrectResult()
         {
             //arrange
-            Car.Domain.Car car = new Car.Domain.Car();
+            SetupClass.ResetDb();
+            ResponseDto expectedResult = new ResponseDto
+            {
+                Flag = true,
+                Id = 1,
+                Message = "Has Been Added.",
+                NumberOfRows = 0
 
-            _builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+            };
 
-            _configuration = _builder.Build();
-
-            _options = new DbContextOptionsBuilder<CarDbContext>()
-                .UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
-                    ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
-                .Options;
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
 
             var carClassFactory = new CarClassFactory();
-            int id = 1;
-            var expectedResult = new Car.Domain.Car
+            var car = new Car.Domain.Car
             {
-                Id = 1,
                 Brand = "TestBrand",
                 Model = "TestModel",
                 Type = "TestType",
+                Specification = new CarSpecification
+                {
+                    EngineDisplacement = 1299,
+                    EnginePower = 150,
+                    Year = 2015
+                },
+                Class = carClassFactory.GetCarClass(1)
             };
-            //    Specification = new CarSpecification
-            //    {
-            //        Id = 1,
-            //        EngineDisplacement = 1299,
-            //        EnginePower = 150,
-            //        Year = 2015,
-            //        CarRef = 1,
-                    
-            //    },
-            //    Class = carClassFactory.GetCarClass(1)
-            //};
-            //expectedResult.Specification.Car = expectedResult;
 
             //act
-            using var context = new CarDbContext(_options);
-            var dbResult = context.Car
-                .FirstOrDefaultAsync(c => c.Id == id);
-
-            car.Id = dbResult.Result.Id;
-            car.Brand = dbResult.Result.Brand;
-            car.Model = dbResult.Result.Model;
-            car.Type = dbResult.Result.Type;
-            //car.Specification = dbResult.Result.Specification;
-            //car.Class = dbResult.Result.Class;
-            //car.ClassRef = dbResult.Result.ClassRef;
-            //car.ClassId = dbResult.Result.ClassId;
-
+            var result = await carRepository.Save(car);
 
             //assert
-            car.Should().BeEquivalentTo(expectedResult);
+            result.Should().BeEquivalentTo(expectedResult);
         }
+
+        [Test]
+        public async Task Get_Car_ReturnsCorrectResult()
+        {
+            //arrange
+            SetupClass.ResetDb();
+            AddDbTestEntries();
+
+            int id = 1;
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            //act
+            var result = await carRepository.Get(id);
+
+            //assert
+            result.Should().BeOfType(typeof(Car.Domain.Car));
+        }
+
+        //[Test]
+        //public void Delete_Car_ReturnsCorrectResult()
+        //{
+        //    //arrange
+        //    int expectedResult = 3;
+
+        //    //act
+        //    using var context = new CarDbContext(_options);
+        //    var result = context.Car.Remove();
+
+        //    result.Should().Be(expectedResult);
+        //}
     }
 }
