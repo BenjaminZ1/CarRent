@@ -6,10 +6,13 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Source", "Source", "{34A74703-9129-4656-9854-68BD0D4E7308}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{0C88769F-3208-4160-BC87-552B8D215596}"
+	ProjectSection(SolutionItems) = preProject
+		source\src\CarRent\appsettings.json = source\src\CarRent\appsettings.json
+	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRent.Tests", "source\tests\CarRent.Tests\CarRent.Tests.csproj", "{A8E4E459-EE92-4E67-A76F-E10A2631FA6A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRent.Tests", "source\tests\CarRent.Tests\CarRent.Tests.csproj", "{A8E4E459-EE92-4E67-A76F-E10A2631FA6A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarRent", "source\src\CarRent\CarRent.csproj", "{1AA95254-379E-4253-B7A4-4F8D0FCBAD7C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarRent", "source\src\CarRent\CarRent.csproj", "{1AA95254-379E-4253-B7A4-4F8D0FCBAD7C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
