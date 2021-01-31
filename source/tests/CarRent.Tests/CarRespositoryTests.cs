@@ -70,24 +70,6 @@ namespace CarRent.Tests
                 .UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
                     ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
                 .Options;
-
-            //var carClassFactory = new CarClassFactory();
-
-            //using var context = new CarDbContext(_options);
-            //context.Car.Add(new Car.Domain.Car
-            //{
-            //    Brand = "TestBrand",
-            //    Model = "TestModel",
-            //    Type = "TestType",
-            //    Specification = new CarSpecification
-            //    {
-            //        EngineDisplacement = 1299,
-            //        EnginePower = 150,
-            //        Year = 2015
-            //    },
-            //    Class = carClassFactory.GetCarClass(1)
-            //});
-            //context.SaveChanges();
         }
 
         [SetUp]
@@ -117,46 +99,6 @@ namespace CarRent.Tests
             context.SaveChanges();
         }
 
-        //[Test]
-        //public void Get_RetrieveSpecificCar_ReturnsCorrectResult()
-        //{
-        //    //arrange
-        //    Car.Domain.Car car = new Car.Domain.Car();
-
-        //    _builder = new ConfigurationBuilder()
-        //        .SetBasePath(Directory.GetCurrentDirectory())
-        //        .AddJsonFile("appsettings.json");
-
-        //    _configuration = _builder.Build();
-
-        //    _options = new DbContextOptionsBuilder<CarDbContext>()
-        //        .UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
-        //            ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
-        //        .Options;
-
-        //    int id = 1;
-        //    var expectedResult = new Car.Domain.Car
-        //    {
-        //        Id = id,
-        //        Brand = "TestBrand",
-        //        Model = "TestModel",
-        //        Type = "TestType",
-        //    };
-
-        //    //act
-        //    using var context = new CarDbContext(_options);
-        //    var dbResult = context.Car
-        //        .FirstOrDefaultAsync(c => c.Id == id);
-
-        //    car.Id = dbResult.Result.Id;
-        //    car.Brand = dbResult.Result.Brand;
-        //    car.Model = dbResult.Result.Model;
-        //    car.Type = dbResult.Result.Type;
-
-        //    //assert
-        //    car.Should().BeEquivalentTo(expectedResult);
-        //}
-
         [Test]
         public async Task Save_Car_ReturnsCorrectResult()
         {
@@ -167,7 +109,6 @@ namespace CarRent.Tests
                 Id = 1,
                 Message = "Has Been Added.",
                 NumberOfRows = 0
-
             };
 
             await using var context = new CarDbContext(_options);
@@ -195,16 +136,17 @@ namespace CarRent.Tests
             result.Should().BeEquivalentTo(expectedResult);
         }
 
+        [Test]
         public async Task Save_ExistingCar_ReturnsCorrectResult()
         {
             //arrange
+            AddDbTestEntries();
             ResponseDto expectedResult = new ResponseDto
             {
                 Flag = true,
                 Id = 1,
                 Message = "Has Been Updated.",
                 NumberOfRows = 0
-
             };
 
             await using var context = new CarDbContext(_options);
@@ -213,16 +155,17 @@ namespace CarRent.Tests
             var carClassFactory = new CarClassFactory();
             var car = new Car.Domain.Car
             {
-                Brand = "TestBrand",
-                Model = "TestModel",
-                Type = "TestType",
+                Id = 1,
+                Brand = "TestBrandNeu",
+                Model = "TestModelNeu",
+                Type = "TestTypeNeu",
                 Specification = new CarSpecification
                 {
-                    EngineDisplacement = 1299,
-                    EnginePower = 150,
-                    Year = 2015
+                    EngineDisplacement = 1399,
+                    EnginePower = 250,
+                    Year = 2016
                 },
-                Class = carClassFactory.GetCarClass(1)
+                Class = carClassFactory.GetCarClass(2)
             };
 
             //act

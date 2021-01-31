@@ -87,12 +87,14 @@ namespace CarRent.Car.Infrastructure
                 entity.Id = car.Id;
                 entity.Brand = car.Brand;
                 entity.Model = car.Model;
+                entity.Type = car.Type;
                 entity.Specification.Year = car.Specification.Year;
                 entity.Specification.EngineDisplacement = car.Specification.EngineDisplacement;
                 entity.Specification.EnginePower = car.Specification.EnginePower;
 
                 try
                 {
+                    entity.Class = await FindOrAddNewCarClass(car.Class);
                     await _db.SaveChangesAsync();
                     responseDto.Id = car.Id;
                     responseDto.Flag = true;
