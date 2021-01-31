@@ -90,6 +90,12 @@ namespace CarRent.Tests
             //context.SaveChanges();
         }
 
+        [SetUp]
+        public void ResetDb()
+        {
+            SetupClass.ResetDb();
+        }
+
         private void AddDbTestEntries()
         {
             var carClassFactory = new CarClassFactory();
@@ -155,7 +161,6 @@ namespace CarRent.Tests
         public async Task Save_Car_ReturnsCorrectResult()
         {
             //arrange
-            SetupClass.ResetDb();
             ResponseDto expectedResult = new ResponseDto
             {
                 Flag = true,
@@ -190,11 +195,47 @@ namespace CarRent.Tests
             result.Should().BeEquivalentTo(expectedResult);
         }
 
+        public async Task Save_ExistingCar_ReturnsCorrectResult()
+        {
+            //arrange
+            ResponseDto expectedResult = new ResponseDto
+            {
+                Flag = true,
+                Id = 1,
+                Message = "Has Been Updated.",
+                NumberOfRows = 0
+
+            };
+
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            var carClassFactory = new CarClassFactory();
+            var car = new Car.Domain.Car
+            {
+                Brand = "TestBrand",
+                Model = "TestModel",
+                Type = "TestType",
+                Specification = new CarSpecification
+                {
+                    EngineDisplacement = 1299,
+                    EnginePower = 150,
+                    Year = 2015
+                },
+                Class = carClassFactory.GetCarClass(1)
+            };
+
+            //act
+            var result = await carRepository.Save(car);
+
+            //assert
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
         [Test]
         public async Task Get_Car_ReturnsCorrectResult()
         {
             //arrange
-            SetupClass.ResetDb();
             AddDbTestEntries();
 
             int id = 1;
@@ -208,17 +249,70 @@ namespace CarRent.Tests
             result.Should().BeOfType(typeof(Car.Domain.Car));
         }
 
-        //[Test]
-        //public void Delete_Car_ReturnsCorrectResult()
-        //{
-        //    //arrange
-        //    int expectedResult = 3;
+        [Test]
+        public async Task GetAll_Car_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
 
-        //    //act
-        //    using var context = new CarDbContext(_options);
-        //    var result = context.Car.Remove();
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
 
-        //    result.Should().Be(expectedResult);
-        //}
+            //act
+            var result = await carRepository.GetAll();
+
+            //assert
+            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Count.Should().Be(1);
+        }
+
+        [Test]
+        public async Task Delete_Car_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+
+            int id = 1;
+            ResponseDto expectedResult = new ResponseDto
+            {
+                Flag = true,
+                Id = 0,
+                Message = "Has been Deleted.",
+                NumberOfRows = 0
+
+            };
+
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            //act
+            var result = await carRepository.Delete(id);
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Delete_NotExistingCar_ReturnsCorrectResult()
+        {
+            //arrange
+
+            int id = 1;
+            ResponseDto expectedResult = new ResponseDto
+            {
+                Flag = false,
+                Id = 0,
+                Message = "Car does not exist.",
+                NumberOfRows = 0
+
+            };
+
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            //act
+            var result = await carRepository.Delete(id);
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
     }
 }
