@@ -47,6 +47,7 @@ namespace CarRent.Tests
             context.Database.EnsureCreated();
         }
     }
+
     [TestFixture]
     class CarRespositoryTests
     {
