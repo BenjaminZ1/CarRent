@@ -11,6 +11,8 @@ namespace CarRent.Car.Application
         public CarSpecificationDto Specification { get; set; }
         public CarClassDto Class { get; set; }
 
+        public CarDto() { }
+
         public CarDto(Domain.Car x)
         {
            
