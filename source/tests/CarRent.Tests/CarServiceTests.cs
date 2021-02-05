@@ -53,6 +53,21 @@ namespace CarRent.Tests
                         EnginePower = 100,
                         Year = 2007
                     }
+                },
+                new Car.Domain.Car()
+                {
+                    Id = 3,
+                    Brand = "TestBrand3",
+                    Class = carClassFactory.GetCarClass(3),
+                    Model = "TestModel3",
+                    Type = "TestType3",
+                    Specification = new CarSpecification()
+                    {
+                        Id = 3,
+                        EngineDisplacement = 999,
+                        EnginePower = 80,
+                        Year = 2005
+                    }
                 }
             };
         }
@@ -61,7 +76,7 @@ namespace CarRent.Tests
         public async Task Get_Car_GetsCalledOnce()
         {
             //arrange
-            int id = 1;
+            int? id = 1;
             var carStub = carTestData[0];
             var carRepositoryFake = A.Fake<ICarRepository>();
             var carClassFactoryFake = A.Fake<CarClassFactory>();
@@ -80,7 +95,7 @@ namespace CarRent.Tests
         public async Task Get_Car_ReturnsCorrectResult()
         {
             //arrange
-            int id = 1;
+            int? id = 1;
             var carStub = carTestData[0];
             var carRepositoryFake = A.Fake<ICarRepository>();
             var carClassFactoryFake = A.Fake<CarClassFactory>();
