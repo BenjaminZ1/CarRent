@@ -9,8 +9,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarRent.Migrations
 {
     [DbContext(typeof(BaseDbContext))]
-    [Migration("20210130184148_renameTableCarSpecification")]
-    partial class renameTableCarSpecification
+    [Migration("20210205231109_SmallChange")]
+    partial class SmallChange
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -62,7 +62,7 @@ namespace CarRent.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("CarClass");
+                    b.ToTable("Class");
 
                     b.HasDiscriminator<string>("class_type").HasValue("CarClass");
                 });
@@ -108,10 +108,15 @@ namespace CarRent.Migrations
                     b.Property<DateTime>("StartDate")
                         .HasColumnType("datetime(6)");
 
+                    b.Property<int?>("UserRef")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("ClassRef")
                         .IsUnique();
+
+                    b.HasIndex("UserRef");
 
                     b.ToTable("Reservation");
                 });
@@ -134,10 +139,15 @@ namespace CarRent.Migrations
                     b.Property<string>("Plz")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
+                    b.Property<int?>("ReservationId")
+                        .HasColumnType("int");
+
                     b.Property<string>("Street")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("ReservationId");
 
                     b.ToTable("User");
                 });
@@ -146,6 +156,8 @@ namespace CarRent.Migrations
                 {
                     b.HasBaseType("CarRent.Car.Domain.CarClass");
 
+                    b.ToTable("Class");
+
                     b.HasDiscriminator().HasValue("class_easy");
                 });
 
@@ -153,12 +165,16 @@ namespace CarRent.Migrations
                 {
                     b.HasBaseType("CarRent.Car.Domain.CarClass");
 
+                    b.ToTable("Class");
+
                     b.HasDiscriminator().HasValue("class_luxury");
                 });
 
             modelBuilder.Entity("CarRent.Car.Domain.MediumCarClass", b =>
                 {
                     b.HasBaseType("CarRent.Car.Domain.CarClass");
+
+                    b.ToTable("Class");
 
                     b.HasDiscriminator().HasValue("class_medium");
                 });
@@ -190,9 +206,25 @@ namespace CarRent.Migrations
                     b.HasOne("CarRent.Car.Domain.CarClass", "Class")
                         .WithOne("Reservation")
                         .HasForeignKey("CarRent.Reservation.Domain.Reservation", "ClassRef")
-                        .OnDelete(DeleteBehavior.SetNull);
+                        .OnDelete(DeleteBehavior.NoAction);
+
+                    b.HasOne("CarRent.User.Domain.User", "User")
+                        .WithMany("Reservations")
+                        .HasForeignKey("UserRef")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Class");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("CarRent.User.Domain.User", b =>
+                {
+                    b.HasOne("CarRent.Reservation.Domain.Reservation", "Reservation")
+                        .WithMany()
+                        .HasForeignKey("ReservationId");
+
+                    b.Navigation("Reservation");
                 });
 
             modelBuilder.Entity("CarRent.Car.Domain.Car", b =>
@@ -205,6 +237,11 @@ namespace CarRent.Migrations
                     b.Navigation("Cars");
 
                     b.Navigation("Reservation");
+                });
+
+            modelBuilder.Entity("CarRent.User.Domain.User", b =>
+                {
+                    b.Navigation("Reservations");
                 });
 #pragma warning restore 612, 618
         }

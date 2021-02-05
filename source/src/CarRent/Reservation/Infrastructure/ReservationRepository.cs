@@ -39,6 +39,7 @@ namespace CarRent.Reservation.Infrastructure
 
         public async Task<ResponseDto> Save(Domain.Reservation reservation)
         {
+            int rows;
             ResponseDto responseDto = new ResponseDto();
             if (reservation.Id == 0)
             {
@@ -47,11 +48,12 @@ namespace CarRent.Reservation.Infrastructure
                     reservation.Class = await FindCarClass(reservation.ClassRef);
                     reservation.User = await FindUser(reservation.UserRef);
                     await _db.AddAsync(reservation);
-                    await _db.SaveChangesAsync();
+                    rows = await _db.SaveChangesAsync();
 
                     responseDto.Id = reservation.Id;
                     responseDto.Flag = true;
                     responseDto.Message = "Has Been Added.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {
@@ -69,10 +71,11 @@ namespace CarRent.Reservation.Infrastructure
 
                 try
                 {
-                    await _db.SaveChangesAsync();
+                    rows = await _db.SaveChangesAsync();
                     responseDto.Id = reservation.Id;
                     responseDto.Flag = true;
                     responseDto.Message = "Has Been Updated.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {
@@ -94,10 +97,11 @@ namespace CarRent.Reservation.Infrastructure
                 {
                     _db.Reservation.Remove(reservation);
 
-                    await _db.SaveChangesAsync();
+                    var rows = await _db.SaveChangesAsync();
 
                     responseDto.Flag = true;
                     responseDto.Message = "Has been Deleted.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {

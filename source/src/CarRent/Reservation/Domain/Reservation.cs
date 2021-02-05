@@ -9,7 +9,6 @@ namespace CarRent.Reservation.Domain
         public DateTime EndDate { get; set; }
         public virtual Car.Domain.CarClass Class { get; set; }
         public virtual int? ClassRef { get; set; }
-
         public virtual User.Domain.User User { get; set; }
         public virtual int? UserRef { get; set; }
 
