@@ -1,8 +1,9 @@
 ﻿using System;
+using CarRent.Common.Domain;
 
 namespace CarRent.Reservation.Domain
 {
-    public class Reservation
+    public class Reservation : EntityBase
     {
         public int Id { get; set; }
         public DateTime StartDate { get; set; }

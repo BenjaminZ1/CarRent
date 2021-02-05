@@ -74,7 +74,9 @@ namespace CarRent.Tests.Reservation
                 {
                     Class = carClassFactory.GetCarClass(1),
                     StartDate = DateTime.Parse("05.02.2021 00:00:00"),
-                    EndDate = DateTime.Parse("10.02.2021 00:00:00")
+                    EndDate = DateTime.Parse("10.02.2021 00:00:00"),
+                    UserRef = 1
+                    
                 }
             });
             context.SaveChanges();
@@ -145,7 +147,6 @@ namespace CarRent.Tests.Reservation
                 Plz = "9002",
                 Reservation = new CarRent.Reservation.Domain.Reservation()
                 {
-                    Id = 1,
                     Class = carClassFactory.GetCarClass(2),
                     StartDate = DateTime.Parse("06.02.2021 00:00:00"),
                     EndDate = DateTime.Parse("11.02.2021 00:00:00")
@@ -216,6 +217,48 @@ namespace CarRent.Tests.Reservation
             var result = await userRepository.Delete(id);
 
             result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Delete_NotExistingUser_ReturnsCorrectResult()
+        {
+            //arrange
+            int id = 1;
+            ResponseDto expectedResult = new ResponseDto
+            {
+                Flag = false,
+                Id = 0,
+                Message = "User does not exist.",
+                NumberOfRows = 0
+
+            };
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Delete(id);
+
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Search_UserBrandAndModel_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            string brand = "TestBrand";
+            string model = "TestModel";
+
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            //var result = await userRepository.Search();
+
+            //result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            //result.Count.Should().Be(1);
         }
     }
 }
