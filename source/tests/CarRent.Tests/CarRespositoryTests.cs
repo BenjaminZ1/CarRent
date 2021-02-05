@@ -178,7 +178,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Get_Car_ReturnsCorrectResult()
+        public async Task Get_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             AddDbTestEntries();
@@ -195,7 +195,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task GetAll_Car_ReturnsCorrectResult()
+        public async Task GetAll_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             AddDbTestEntries();
@@ -212,7 +212,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Delete_Car_ReturnsCorrectResult()
+        public async Task Delete_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             AddDbTestEntries();

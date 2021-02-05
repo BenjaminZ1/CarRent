@@ -88,7 +88,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Get_Car_ReturnsCorrectResult()
+        public async Task Get_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             int? id = 1;
@@ -177,7 +177,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task GetAll_Cars_ReturnsCorrectResult()
+        public async Task GetAll_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             var carServiceFake = A.Fake<ICarService>();
@@ -340,7 +340,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Save_Car_ReturnsCorrectResult()
+        public async Task Save_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             var carClassFactory = new CarClassFactory();
@@ -393,6 +393,74 @@ namespace CarRent.Tests
             result.StatusCode.Should().Be(400);
         }
 
+        [Test]
+        public async Task Save_WhenResponseIsNull_ReturnsCorrectResult()
+        {
+            //arrange
+            var carClassFactory = new CarClassFactory();
+            var testCar = new Car.Domain.Car()
+            {
+                Brand = "TestBrand4",
+                Class = carClassFactory.GetCarClass(1),
+                Model = "TestModel4",
+                Type = "TestType4",
+                Specification = new CarSpecification()
+                {
+                    Id = 1,
+                    EngineDisplacement = 1699,
+                    EnginePower = 220,
+                    Year = 2018
+                }
+            };
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+            ResponseDto responseDtoStub = null;
 
+            A.CallTo(() => carServiceFake.Save(testCar)).Returns(responseDtoStub);
+
+            //act
+            var actionResult = await carController.Save(testCar);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(NotFoundResult));
+            var result = actionResult as NotFoundResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
+        }
+
+        [Test]
+        public async Task Delete_WhenOk_ReturnsCorrectResult()
+        {
+            //arrange
+            var carClassFactory = new CarClassFactory();
+            var testCar = new Car.Domain.Car()
+            {
+                Brand = "TestBrand4",
+                Class = carClassFactory.GetCarClass(1),
+                Model = "TestModel4",
+                Type = "TestType4",
+                Specification = new CarSpecification()
+                {
+                    Id = 1,
+                    EngineDisplacement = 1699,
+                    EnginePower = 220,
+                    Year = 2018
+                }
+            };
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+            ResponseDto responseDtoStub = null;
+
+            A.CallTo(() => carServiceFake.Save(testCar)).Returns(responseDtoStub);
+
+            //act
+            var actionResult = await carController.Save(testCar);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(NotFoundResult));
+            var result = actionResult as NotFoundResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
+        }
     }
 }

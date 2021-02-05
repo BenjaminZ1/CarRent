@@ -73,7 +73,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Get_Car_GetsCalledOnce()
+        public async Task Get_WhenOk_GetsCalledOnce()
         {
             //arrange
             int? id = 1;
@@ -92,7 +92,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Get_Car_ReturnsCorrectResult()
+        public async Task Get_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             int? id = 1;
@@ -115,7 +115,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task GetAll_Cars_GetsCalledOnce()
+        public async Task GetAll_WhenOk_GetsCalledOnce()
         {
             //arrange
             var carsStub = carTestData;
@@ -133,7 +133,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task GetAll_Cars_ReturnsCorrectResult()
+        public async Task GetAll_WhenOk_ReturnsCorrectResult()
         {
             //arrange
             var carsStub = carTestData;
