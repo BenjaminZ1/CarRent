@@ -109,7 +109,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task Get_WhenReturnIsNull_ReturnsCorrectResult()
+        public async Task Get_WhenResponseIsNull_ReturnsCorrectResult()
         {
             //arrange
             int? id = 1;
@@ -197,7 +197,7 @@ namespace CarRent.Tests
         }
 
         [Test]
-        public async Task GetAll_WhenReturnIsNull_ReturnsCorrectResult()
+        public async Task GetAll_WhenResponseIsNull_ReturnsCorrectResult()
         {
             //arrange
             var carServiceFake = A.Fake<ICarService>();
@@ -432,29 +432,57 @@ namespace CarRent.Tests
         public async Task Delete_WhenOk_ReturnsCorrectResult()
         {
             //arrange
-            var carClassFactory = new CarClassFactory();
-            var testCar = new Car.Domain.Car()
-            {
-                Brand = "TestBrand4",
-                Class = carClassFactory.GetCarClass(1),
-                Model = "TestModel4",
-                Type = "TestType4",
-                Specification = new CarSpecification()
-                {
-                    Id = 1,
-                    EngineDisplacement = 1699,
-                    EnginePower = 220,
-                    Year = 2018
-                }
-            };
+            int? id = 1;
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+            ResponseDto responseDtoStub = new ResponseDto();
+
+            A.CallTo(() => carServiceFake.Delete(id)).Returns(responseDtoStub);
+
+            //act
+            var actionResult = await carController.Delete(id);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(OkObjectResult));
+            var result = actionResult as OkObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+        }
+
+        [Test]
+        public async Task Delete_WhenIdIsNull_ReturnsCorrectResult()
+        {
+            //arrange
+            int? id = null;
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+            ResponseDto responseDtoStub = new ResponseDto();
+
+            A.CallTo(() => carServiceFake.Delete(id)).Returns(responseDtoStub);
+
+            //act
+            var actionResult = await carController.Delete(id);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(BadRequestResult));
+            var result = actionResult as BadRequestResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(400);
+        }
+
+        [Test]
+        public async Task Delete_WhenResponseIsNull_ReturnsCorrectResult()
+        {
+            //arrange
+            int? id = 1;
             var carServiceFake = A.Fake<ICarService>();
             var carController = new CarController(carServiceFake);
             ResponseDto responseDtoStub = null;
 
-            A.CallTo(() => carServiceFake.Save(testCar)).Returns(responseDtoStub);
+            A.CallTo(() => carServiceFake.Delete(id)).Returns(responseDtoStub);
 
             //act
-            var actionResult = await carController.Save(testCar);
+            var actionResult = await carController.Delete(id);
 
             //assert
             actionResult.Should().BeOfType(typeof(NotFoundResult));
