@@ -378,7 +378,6 @@ namespace CarRent.Tests
         public async Task Save_WhenCarIsNull_ReturnsCorrectResult()
         {
             //arrange
-            var carClassFactory = new CarClassFactory();
             Car.Domain.Car testCar = null;
             var carServiceFake = A.Fake<ICarService>();
             var carController = new CarController(carServiceFake);

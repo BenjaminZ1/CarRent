@@ -6,8 +6,10 @@ using System.Threading.Tasks;
 using CarRent.Car.Application;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
+using CarRent.Common.Application;
 using FakeItEasy;
 using FluentAssertions;
+using Microsoft.EntityFrameworkCore;
 using MockQueryable.FakeItEasy;
 using NUnit.Framework;
 
@@ -17,12 +19,12 @@ namespace CarRent.Tests
     [TestFixture]
     class CarServiceTests
     {
-        private List<Car.Domain.Car> carTestData;
-        [OneTimeSetUp]
+        private List<Car.Domain.Car> _carTestData;
+        [SetUp]
         public void GenerateTestData()
         {
             var carClassFactory = new CarClassFactory();
-            carTestData = new List<Car.Domain.Car>
+            _carTestData = new List<Car.Domain.Car>
             {
                 new Car.Domain.Car()
                 {
@@ -77,7 +79,7 @@ namespace CarRent.Tests
         {
             //arrange
             int? id = 1;
-            var carStub = carTestData[0];
+            var carStub = _carTestData[0];
             var carRepositoryFake = A.Fake<ICarRepository>();
             var carClassFactoryFake = A.Fake<CarClassFactory>();
 
@@ -96,7 +98,7 @@ namespace CarRent.Tests
         {
             //arrange
             int? id = 1;
-            var carStub = carTestData[0];
+            var carStub = _carTestData[0];
             var carRepositoryFake = A.Fake<ICarRepository>();
             var carClassFactoryFake = A.Fake<CarClassFactory>();
 
@@ -118,7 +120,7 @@ namespace CarRent.Tests
         public async Task GetAll_WhenOk_GetsCalledOnce()
         {
             //arrange
-            var carsStub = carTestData;
+            var carsStub = _carTestData;
             var carRepositoryFake = A.Fake<ICarRepository>();
             var carClassFactoryFake = A.Fake<CarClassFactory>();
 
@@ -136,19 +138,166 @@ namespace CarRent.Tests
         public async Task GetAll_WhenOk_ReturnsCorrectResult()
         {
             //arrange
-            var carsStub = carTestData;
+            var carsStub = _carTestData;
             var carRepositoryFake = A.Fake<ICarRepository>();
             var carClassFactoryFake = A.Fake<CarClassFactory>();
 
             var carService = new CarService(carRepositoryFake, carClassFactoryFake);
             A.CallTo(() => carRepositoryFake.GetAll()).Returns(carsStub);
 
-            var expectedResult = carsStub.Select(c => new CarDto(c));
             
             //act
             var result = await carService.GetAll();
 
             //assert
+            A.CallTo(() => carRepositoryFake.GetAll()).MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public async Task Search_WhenOk_GetsCalledOnce()
+        {
+            //arrange
+            var carsStub = _carTestData;
+            string brand = "TestBrand";
+            string model = "TestModel";
+            var carRepositoryFake = A.Fake<ICarRepository>();
+            var carClassFactoryFake = A.Fake<CarClassFactory>();
+
+            var carService = new CarService(carRepositoryFake, carClassFactoryFake);
+            A.CallTo(() => carRepositoryFake.Search(brand, model))
+                .Returns(carsStub.Where(c => c.Brand == brand & c.Model == model)
+                    .ToList());
+
+            //act
+            var result = await carService.Search(brand, model);
+
+            //assert
+            A.CallTo(() => carRepositoryFake.Search(brand, model)).MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public async Task Search_WhenOk_ReturnsCorrectResult()
+        {
+            //arrange
+            var carsStub = _carTestData;
+            string brand = "TestBrand";
+            string model = "TestModel";
+            var carRepositoryFake = A.Fake<ICarRepository>();
+            var carClassFactoryFake = A.Fake<CarClassFactory>();
+
+            var expectedResult = carsStub.Where(c => c.Brand == brand & c.Model == model)
+                .Select(c => new CarDto(c))
+                .ToList();
+
+
+            var carService = new CarService(carRepositoryFake, carClassFactoryFake);
+            A.CallTo(() => carRepositoryFake.Search(brand, model))
+                .Returns(carsStub.Where(c => c.Brand == brand & c.Model == model)
+                    .ToList());
+
+            //act
+            var result = await carService.Search(brand, model);
+
+            //assert
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Save_WhenOk_ReturnsCorrectResult()
+        {
+            //arrange
+            var carStub = _carTestData[0];
+            var carRepositoryFake = A.Fake<ICarRepository>();
+            var carClassFactoryFake = A.Fake<CarClassFactory>();
+            ResponseDto responseDto = new ResponseDto();
+            var expectedResult = responseDto;
+
+            var carService = new CarService(carRepositoryFake, carClassFactoryFake);
+            A.CallTo(() => carRepositoryFake.Save(carStub)).Returns(responseDto);
+
+            //act
+            var result = await carService.Save(carStub);
+
+            //assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(ResponseDto));
+        }
+
+        [Test]
+        public async Task Save_WhenCarClassIsNull_ReturnsCorrectResult()
+        {
+            //arrange
+            var carStub = _carTestData[0];
+            carStub.Class = null;
+            carStub.ClassId = 0;
+
+            var carRepositoryFake = A.Fake<ICarRepository>();
+            var carClassFactoryFake = A.Fake<CarClassFactory>();
+
+            ResponseDto responseDto = new ResponseDto()
+            {
+                Message = $"CarClass with ID {carStub.ClassId} is not allowed"
+            };
+            var expectedResult = responseDto;
+
+            var carService = new CarService(carRepositoryFake, carClassFactoryFake);
+
+
+            //act
+            var result = await carService.Save(carStub);
+
+            //assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(ResponseDto));
+            result.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Delete_WhenOk_GetsCalledOnce()
+        {
+            //arrange
+            int? id = 1;
+            var carsStub = _carTestData;
+
+            var carRepositoryFake = A.Fake<ICarRepository>();
+            var carClassFactoryFake = A.Fake<CarClassFactory>();
+
+            ResponseDto responseDto = new ResponseDto();
+            var expectedResult = responseDto;
+
+            var carService = new CarService(carRepositoryFake, carClassFactoryFake);
+            A.CallTo(() => carRepositoryFake.Delete(id)).Returns(responseDto);
+
+            //act
+            var result = await carService.Delete(id);
+
+            //assert
+            A.CallTo(() => carRepositoryFake.Delete(id)).MustHaveHappenedOnceExactly();
+        }
+
+        [Test]
+        public async Task Delete_WhenOk_ReturnsCorrectResult()
+        {
+            //arrange
+            int? id = 1;
+            var carsStub = _carTestData;
+
+            var carRepositoryFake = A.Fake<ICarRepository>();
+            var carClassFactoryFake = A.Fake<CarClassFactory>();
+
+            ResponseDto responseDto = new ResponseDto();
+            var expectedResult = responseDto;
+
+            var carService = new CarService(carRepositoryFake, carClassFactoryFake);
+            A.CallTo(() => carRepositoryFake.Delete(id)).Returns(responseDto);
+
+
+            //act
+            var result = await carService.Delete(id);
+
+            //assert
+            result.Should().NotBeNull();
+            result.Should().BeOfType(typeof(ResponseDto));
             result.Should().BeEquivalentTo(expectedResult);
         }
     }

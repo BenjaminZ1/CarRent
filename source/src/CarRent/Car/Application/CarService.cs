@@ -28,14 +28,14 @@ namespace CarRent.Car.Application
         public async Task<IEnumerable<CarDto>> GetAll()
         {
             var data = await _db.GetAll();
-            var mappedData = data.Select(x => (new CarDto(x)));
+            var mappedData = data.Select(x => new CarDto(x));
             return mappedData;
         }
 
         public async Task<IEnumerable<CarDto>> Search(string brand, string model)
         {
             var data = await _db.Search(brand, model);
-            var mappedData = data.Select(x => (new CarDto(x)));
+            var mappedData = data.Select(x => new CarDto(x));
             return mappedData;
         }
 
