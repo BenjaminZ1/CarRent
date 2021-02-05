@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using System.Threading.Tasks;
@@ -160,6 +161,68 @@ namespace CarRent.Tests
             //    await carController.Get(id);
             //};
             var actionResult = await carController.Get(id);
+
+            //assert
+            var result = actionResult.Result as ObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(500);
+            result.Value.Should().Be("Error retrieving data from the database");
+        }
+
+        [Test]
+        public async Task GetAll_Cars_ReturnsCorrectResult()
+        {
+            //arrange
+            var carServiceFake = A.Fake<ICarService>();
+            var carDtoStub = carDtoTestData;
+            var carController = new CarController(carServiceFake);
+
+            A.CallTo(() => carServiceFake.GetAll()).Returns(carDtoStub);
+
+            //act
+            var actionResult = await carController.GetAll();
+
+            //assert
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+        }
+
+        [Test]
+        public async Task GetAll_WhenReturnIsNull_ReturnsCorrectResult()
+        {
+            //arrange
+            var carServiceFake = A.Fake<ICarService>();
+            var carDtoStub = new List<CarDto>();
+            var carController = new CarController(carServiceFake);
+
+            A.CallTo(() => carServiceFake.GetAll()).Returns(carDtoStub);
+
+            //act
+            var actionResult = await carController.GetAll();
+
+            //assert
+            var result = actionResult.Result as NotFoundResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
+        }
+
+        [Test]
+        public async Task GetAll_WhenExceptionIsThrown_ReturnsCorrectResult()
+        {
+            //arrange
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+
+            A.CallTo(() => carServiceFake.GetAll()).Throws(new InvalidOperationException
+                ("Ich bin eine TestExcpetion"));
+
+            //act
+            //Func<Task> testFunc = async () =>
+            //{
+            //    await carController.Get(id);
+            //};
+            var actionResult = await carController.GetAll();
 
             //assert
             var result = actionResult.Result as ObjectResult;

@@ -1,16 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
 using CarRent.Common.Application;
 using CarRent.Common.Infrastructure;
+using FakeItEasy;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.Extensions.Configuration;
+using MockQueryable.FakeItEasy;
 using NUnit.Framework;
 
 namespace CarRent.Tests
