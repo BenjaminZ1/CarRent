@@ -313,5 +313,6 @@ namespace CarRent.Tests
             result.Should().BeOfType(typeof(List<Car.Domain.Car>));
             result.Count.Should().Be(1);
         }
+
     }
 }

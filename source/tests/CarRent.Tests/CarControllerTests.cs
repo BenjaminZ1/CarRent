@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using CarRent.Car.Application;
 using CarRent.Car.Controllers;
+using CarRent.Car.Domain;
+using CarRent.Common.Application;
 using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
@@ -99,6 +102,7 @@ namespace CarRent.Tests
             var actionResult = await carController.Get(id);
 
             //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<CarDto>));
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(200);
@@ -119,6 +123,7 @@ namespace CarRent.Tests
             var actionResult = await carController.Get(id);
 
             //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<CarDto>));
             var result = actionResult.Result as NotFoundResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(404);
@@ -139,6 +144,7 @@ namespace CarRent.Tests
             var actionResult = await carController.Get(id);
 
             //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<CarDto>));
             var result = actionResult.Result as BadRequestResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(400);
@@ -163,6 +169,7 @@ namespace CarRent.Tests
             var actionResult = await carController.Get(id);
 
             //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<CarDto>));
             var result = actionResult.Result as ObjectResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(500);
@@ -183,6 +190,7 @@ namespace CarRent.Tests
             var actionResult = await carController.GetAll();
 
             //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
             var result = actionResult.Result as OkObjectResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(200);
@@ -202,6 +210,7 @@ namespace CarRent.Tests
             var actionResult = await carController.GetAll();
 
             //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
             var result = actionResult.Result as NotFoundResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(404);
@@ -225,10 +234,165 @@ namespace CarRent.Tests
             var actionResult = await carController.GetAll();
 
             //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
             var result = actionResult.Result as ObjectResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(500);
             result.Value.Should().Be("Error retrieving data from the database");
         }
+
+        [Test]
+        public async Task Search_WhenOneMatchingCarExists_ReturnsCorrectResult()
+        {
+            //arrange
+            string brand = "TestBrand";
+            string model = "TestModel";
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+
+            var expectedResult = carDtoTestData.Where(c => c.Brand == brand & c.Model == model);
+
+            A.CallTo(() => carServiceFake.Search(brand, model))
+                .Returns(carDtoTestData.Where(c => c.Brand == brand & c.Model == model));
+
+            //act
+            var actionResult = await carController.Search(brand, model);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+            result.Value.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Search_WhenTwoOrMoreMatchingCarExists_ReturnsCorrectResult()
+        {
+            //arrange
+            string brand = "TestBrand";
+            string model = "TestModel2";
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+
+            var expectedResult = carDtoTestData.Where(c => c.Brand == brand | c.Model == model);
+
+            A.CallTo(() => carServiceFake.Search(brand, model))
+                .Returns(carDtoTestData.Where(c => c.Brand == brand | c.Model == model));
+
+            //act
+            var actionResult = await carController.Search(brand, model);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
+            var result = actionResult.Result as OkObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+            result.Value.Should().BeEquivalentTo(expectedResult);
+        }
+
+        [Test]
+        public async Task Search_WhenNoMatchingCarExists_ReturnsCorrectResult()
+        {
+            //arrange
+            string brand = "gibtesnicht";
+            string model = "gibtesnicht";
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+
+            var expectedResult = carDtoTestData.Where(c => c.Brand == brand & c.Model == model);
+
+            A.CallTo(() => carServiceFake.Search(brand, model))
+                .Returns(carDtoTestData.Where(c => c.Brand == brand & c.Model == model));
+
+            //act
+            var actionResult = await carController.Search(brand, model);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
+            var result = actionResult.Result as NotFoundResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(404);
+        }
+
+        [Test]
+        public async Task Search_WhenExceptionIsThrown_ReturnsCorrectResult()
+        {
+            //arrange
+            string brand = "TestBrand";
+            string model = "TestModel";
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+
+
+            A.CallTo(() => carServiceFake.Search(brand, model))
+                .Throws(new InvalidOperationException("Ich bin eine TestException"));
+
+            //act
+            var actionResult = await carController.Search(brand, model);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
+            var result = actionResult.Result as ObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(500);
+            result.Value.Should().Be("Error retrieving data from the database");
+        }
+
+        [Test]
+        public async Task Save_Car_ReturnsCorrectResult()
+        {
+            //arrange
+            var carClassFactory = new CarClassFactory();
+            var testCar = new Car.Domain.Car()
+            {
+                Brand = "TestBrand4",
+                Class = carClassFactory.GetCarClass(1),
+                Model = "TestModel4",
+                Type = "TestType4",
+                Specification = new CarSpecification()
+                {
+                    Id = 1,
+                    EngineDisplacement = 1699,
+                    EnginePower = 220,
+                    Year = 2018
+                }
+            };
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+            var responseDtoStub = new ResponseDto();
+            
+            A.CallTo(() => carServiceFake.Save(testCar)).Returns(responseDtoStub);
+            
+            //act
+            var actionResult = await carController.Save(testCar);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(OkObjectResult));
+            var result = actionResult as OkObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(200);
+        }
+
+        [Test]
+        public async Task Save_WhenCarIsNull_ReturnsCorrectResult()
+        {
+            //arrange
+            var carClassFactory = new CarClassFactory();
+            Car.Domain.Car testCar = null;
+            var carServiceFake = A.Fake<ICarService>();
+            var carController = new CarController(carServiceFake);
+
+            //act
+            var actionResult = await carController.Save(testCar);
+
+            //assert
+            actionResult.Should().BeOfType(typeof(BadRequestResult));
+            var result = actionResult as BadRequestResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(400);
+        }
+
+
     }
 }
