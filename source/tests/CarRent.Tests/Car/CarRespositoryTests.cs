@@ -21,17 +21,17 @@ namespace CarRent.Tests
     [SetUpFixture]
     public class SetupClass
     {
-        private IConfigurationRoot _configuration;
+        //private IConfigurationRoot _configuration;
         private static DbContextOptions<BaseDbContext> _options;
 
         [OneTimeSetUp]
         public void BaseDbContext_CreateDb()
         {
-            var builder = new ConfigurationBuilder()
-                .SetBasePath(Directory.GetCurrentDirectory())
-                .AddJsonFile("appsettings.json");
+            //var builder = new ConfigurationBuilder()
+            //    .SetBasePath(Directory.GetCurrentDirectory())
+            //    .AddJsonFile("appsettings.json");
 
-            _configuration = builder.Build();
+            //_configuration = builder.Build();
 
             _options = new DbContextOptionsBuilder<BaseDbContext>()
                 .UseInMemoryDatabase("testDatabase")
@@ -56,20 +56,20 @@ namespace CarRent.Tests
     [TestFixture]
     class CarRespositoryTests
     {
-        private IConfigurationRoot _configuration;
+        //private IConfigurationRoot _configuration;
         private DbContextOptions<CarDbContext> _options;
-        private IConfigurationBuilder _builder;
+        //private IConfigurationBuilder _builder;
 
         [OneTimeSetUp]
         public void CarDbContext_BuildDbContext()
         {
             SetupClass.ResetDb();
 
-            _builder = new ConfigurationBuilder()
-            .SetBasePath(Directory.GetCurrentDirectory())
-            .AddJsonFile("appsettings.json");
+            //_builder = new ConfigurationBuilder()
+            //.SetBasePath(Directory.GetCurrentDirectory())
+            //.AddJsonFile("appsettings.json");
 
-            _configuration = _builder.Build();
+            //_configuration = _builder.Build();
 
             _options = new DbContextOptionsBuilder<CarDbContext>()
                 .UseInMemoryDatabase("testDatabase")
@@ -115,7 +115,7 @@ namespace CarRent.Tests
                 Flag = true,
                 Id = 1,
                 Message = "Has Been Added.",
-                NumberOfRows = 0
+                NumberOfRows = 2
             };
 
             await using var context = new CarDbContext(_options);
@@ -148,7 +148,7 @@ namespace CarRent.Tests
                 Flag = true,
                 Id = 1,
                 Message = "Has Been Updated.",
-                NumberOfRows = 0
+                NumberOfRows = 3
             };
 
             await using var context = new CarDbContext(_options);
@@ -192,6 +192,7 @@ namespace CarRent.Tests
 
             //assert
             result.Should().BeOfType(typeof(Car.Domain.Car));
+            result.Id.Should().Be(id);
         }
 
         [Test]
@@ -223,7 +224,7 @@ namespace CarRent.Tests
                 Flag = true,
                 Id = 0,
                 Message = "Has been Deleted.",
-                NumberOfRows = 0
+                NumberOfRows = 2
 
             };
 

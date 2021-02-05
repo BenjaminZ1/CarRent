@@ -47,7 +47,10 @@ namespace CarRent.Common.Infrastructure
                 .HasForeignKey(c => c.ClassRef)
                 .OnDelete(DeleteBehavior.Restrict);
 
-            modelBuilder.Entity<User.Domain.User>();
+            modelBuilder.Entity<User.Domain.User>()
+                .HasMany(u => u.Reservations)
+                .WithOne(r => r.User)
+                .OnDelete(DeleteBehavior.Cascade);
 
             modelBuilder.Entity<CarClass>()
                 .Ignore(c => c.ReservationRef);
@@ -58,11 +61,11 @@ namespace CarRent.Common.Infrastructure
                 .HasForeignKey<Reservation.Domain.Reservation>(r => r.ClassRef)
                 .OnDelete(DeleteBehavior.SetNull);
 
-            modelBuilder.Entity<Reservation.Domain.Reservation>()
-                .HasOne(r => r.User)
-                .WithOne(u => u.Reservation)
-                .HasForeignKey<Reservation.Domain.Reservation>(r => r.UserRef)
-                .OnDelete(DeleteBehavior.SetNull);
+            //modelBuilder.Entity<Reservation.Domain.Reservation>()
+            //    .HasOne(r => r.User)
+            //    .WithOne(u => u.Reservation)
+            //    .HasForeignKey<Reservation.Domain.Reservation>(r => r.UserRef)
+            //    .OnDelete(DeleteBehavior.SetNull);
         }
     }
 

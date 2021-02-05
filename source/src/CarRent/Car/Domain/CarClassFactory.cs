@@ -4,7 +4,7 @@ namespace CarRent.Car.Domain
 {
     public interface ICarClassFactory
     {
-        CarClass GetCarClass(int? id);
+         CarClass GetCarClass(int? id);
     }
     public class CarClassFactory : ICarClassFactory
     {

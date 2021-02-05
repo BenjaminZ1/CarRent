@@ -68,18 +68,19 @@ namespace CarRent.User.Infrastructure
 
         public async Task<ResponseDto> Save(Domain.User user)
         {
+            int rows;
             ResponseDto responseDto = new ResponseDto();
             if (user.Id == 0)
             {
                 try
                 {
-
                     await _db.AddAsync(user);
-                    await _db.SaveChangesAsync();
+                    rows = await _db.SaveChangesAsync();
 
                     responseDto.Id = user.Id;
                     responseDto.Flag = true;
                     responseDto.Message = "Has Been Added.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {
@@ -99,10 +100,11 @@ namespace CarRent.User.Infrastructure
 
                 try
                 {
-                    await _db.SaveChangesAsync();
+                    rows = await _db.SaveChangesAsync();
                     responseDto.Id = user.Id;
                     responseDto.Flag = true;
                     responseDto.Message = "Has Been Updated.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {
@@ -123,11 +125,11 @@ namespace CarRent.User.Infrastructure
                 try
                 {
                     _db.User.Remove(user);
-
-                    await _db.SaveChangesAsync();
+                    var rows = await _db.SaveChangesAsync();
 
                     responseDto.Flag = true;
                     responseDto.Message = "Has been Deleted.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {

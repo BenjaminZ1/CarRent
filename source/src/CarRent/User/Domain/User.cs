@@ -1,4 +1,6 @@
-﻿namespace CarRent.User.Domain
+﻿using System.Collections.Generic;
+
+namespace CarRent.User.Domain
 {
     public class User
     {
@@ -9,5 +11,6 @@
         public string Place { get; set; }
         public string Plz { get; set; }
         public virtual Reservation.Domain.Reservation Reservation { get; set; }
+        public virtual ICollection<Reservation.Domain.Reservation> Reservations { get; set; }
     }
 }

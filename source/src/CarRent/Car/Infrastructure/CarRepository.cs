@@ -62,6 +62,7 @@ namespace CarRent.Car.Infrastructure
 
         public async Task<ResponseDto> Save(Domain.Car car)
         {
+            int rows;
             ResponseDto responseDto = new ResponseDto();
             if (car.Id == 0)
             {
@@ -69,11 +70,12 @@ namespace CarRent.Car.Infrastructure
                 {
                     car.Class = await FindOrAddNewCarClass(car.Class);
                     await _db.AddAsync(car);
-                    await _db.SaveChangesAsync();
+                    rows = await _db.SaveChangesAsync();
 
                     responseDto.Id = car.Id;
                     responseDto.Flag = true;
                     responseDto.Message = "Has Been Added.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {
@@ -95,10 +97,11 @@ namespace CarRent.Car.Infrastructure
                 try
                 {
                     entity.Class = await FindOrAddNewCarClass(car.Class);
-                    await _db.SaveChangesAsync();
+                    rows = await _db.SaveChangesAsync();
                     responseDto.Id = car.Id;
                     responseDto.Flag = true;
                     responseDto.Message = "Has Been Updated.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {
@@ -121,10 +124,11 @@ namespace CarRent.Car.Infrastructure
                     _db.Car.Remove(car);
                     _db.RemoveRange(car.Specification);
 
-                    await _db.SaveChangesAsync();
+                    var rows = await _db.SaveChangesAsync();
 
                     responseDto.Flag = true;
                     responseDto.Message = "Has been Deleted.";
+                    responseDto.NumberOfRows = rows;
                 }
                 catch (Exception e)
                 {
