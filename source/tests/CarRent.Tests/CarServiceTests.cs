@@ -30,8 +30,10 @@ namespace CarRent.Tests
                     Brand = "TestBrand",
                     Class = carClassFactory.GetCarClass(1),
                     Model = "TestModel",
+                    Type = "TestType",
                     Specification = new CarSpecification()
                     {
+                        Id = 1,
                         EngineDisplacement = 1599,
                         EnginePower = 180,
                         Year = 2017
@@ -43,11 +45,28 @@ namespace CarRent.Tests
                     Brand = "TestBrand2",
                     Class = carClassFactory.GetCarClass(2),
                     Model = "TestModel2",
+                    Type = "TestType2",
                     Specification = new CarSpecification()
                     {
+                        Id = 2,
                         EngineDisplacement = 1099,
                         EnginePower = 100,
                         Year = 2007
+                    }
+                },
+                new Car.Domain.Car()
+                {
+                    Id = 3,
+                    Brand = "TestBrand3",
+                    Class = carClassFactory.GetCarClass(3),
+                    Model = "TestModel3",
+                    Type = "TestType3",
+                    Specification = new CarSpecification()
+                    {
+                        Id = 3,
+                        EngineDisplacement = 999,
+                        EnginePower = 80,
+                        Year = 2005
                     }
                 }
             };

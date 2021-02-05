@@ -22,7 +22,7 @@ namespace CarRent.Car.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<CarDto>> GetCar(int? id)
+        public async Task<ActionResult<CarDto>> Get(int? id)
         {
             if (id == null)
             {
@@ -44,7 +44,7 @@ namespace CarRent.Car.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<CarDto>>> GetCars()
+        public async Task<ActionResult<IEnumerable<CarDto>>> GetAll()
         {
             try
             {
