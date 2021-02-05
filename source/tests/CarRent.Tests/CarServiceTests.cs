@@ -53,21 +53,6 @@ namespace CarRent.Tests
                         EnginePower = 100,
                         Year = 2007
                     }
-                },
-                new Car.Domain.Car()
-                {
-                    Id = 3,
-                    Brand = "TestBrand3",
-                    Class = carClassFactory.GetCarClass(3),
-                    Model = "TestModel3",
-                    Type = "TestType3",
-                    Specification = new CarSpecification()
-                    {
-                        Id = 3,
-                        EngineDisplacement = 999,
-                        EnginePower = 80,
-                        Year = 2005
-                    }
                 }
             };
         }
