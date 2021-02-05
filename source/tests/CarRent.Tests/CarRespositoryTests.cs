@@ -31,9 +31,11 @@ namespace CarRent.Tests
             _configuration = builder.Build();
 
             _options = new DbContextOptionsBuilder<BaseDbContext>()
-                .UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
-                    ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
+                .UseInMemoryDatabase("testDatabase")
                 .Options;
+                //.UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
+                //    ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
+                //.Options;
 
             using var context = new BaseDbContext(_options);
             context.Database.EnsureDeleted();
@@ -67,9 +69,11 @@ namespace CarRent.Tests
             _configuration = _builder.Build();
 
             _options = new DbContextOptionsBuilder<CarDbContext>()
-                .UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
-                    ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
+                .UseInMemoryDatabase("testDatabase")
                 .Options;
+            //.UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
+            //    ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
+            //.Options;
         }
 
         [SetUp]
