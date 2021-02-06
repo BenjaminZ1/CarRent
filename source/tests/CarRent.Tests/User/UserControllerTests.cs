@@ -166,7 +166,7 @@ namespace CarRent.Tests.User
             var actionResult = await userController.GetAll();
 
             //assert
-            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<UserDto>>));
             var result = actionResult.Result as ObjectResult;
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(500);
