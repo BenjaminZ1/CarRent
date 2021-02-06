@@ -1,4 +1,6 @@
-﻿using CarRent.Car.Domain;
+﻿using System;
+using CarRent.Car.Domain;
+using CarRent.Common.Domain;
 
 namespace CarRent.Car.Application
 {
@@ -8,6 +10,7 @@ namespace CarRent.Car.Application
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Type { get; set; }
+        public Guid Guid { get; set; }
         public CarSpecificationDto Specification { get; set; }
         public CarClassDto Class { get; set; }
 
@@ -20,6 +23,7 @@ namespace CarRent.Car.Application
             this.Class ??= new CarClassDto();
 
             Id = x.Id;
+            Guid = x.Guid;
             Brand = x.Brand;
             Model = x.Model;
             Type = x.Type;

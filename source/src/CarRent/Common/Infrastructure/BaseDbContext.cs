@@ -21,10 +21,6 @@ namespace CarRent.Common.Infrastructure
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.ApplyConfiguration(new CarConfiguration());
-            modelBuilder.ApplyConfiguration(new UserConfiguration());
-            modelBuilder.ApplyConfiguration(new ReservationConfiguration());
-
             modelBuilder.Entity<CarClass>()
                 .Ignore(cls => cls.Cars);
 
@@ -42,6 +38,10 @@ namespace CarRent.Common.Infrastructure
 
             modelBuilder.Entity<CarClass>()
                 .Ignore(c => c.ReservationRef);
+
+            modelBuilder.ApplyConfiguration(new CarConfiguration());
+            modelBuilder.ApplyConfiguration(new UserConfiguration());
+            modelBuilder.ApplyConfiguration(new ReservationConfiguration());
 
             //modelBuilder.Entity<Car.Domain.Car>()
             //    .Ignore(c => c.ClassId)

@@ -26,9 +26,6 @@ namespace CarRent.Migrations
                     b.Property<string>("Brand")
                         .HasColumnType("longtext CHARACTER SET utf8mb4");
 
-                    b.Property<int?>("ClassId1")
-                        .HasColumnType("int");
-
                     b.Property<int>("ClassRef")
                         .HasColumnType("int");
 
@@ -43,7 +40,7 @@ namespace CarRent.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ClassId1");
+                    b.HasIndex("ClassRef");
 
                     b.ToTable("Car");
                 });
@@ -192,8 +189,10 @@ namespace CarRent.Migrations
             modelBuilder.Entity("CarRent.Car.Domain.Car", b =>
                 {
                     b.HasOne("CarRent.Car.Domain.CarClass", "Class")
-                        .WithMany()
-                        .HasForeignKey("ClassId1");
+                        .WithMany("Cars")
+                        .HasForeignKey("ClassRef")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
 
                     b.Navigation("Class");
                 });
@@ -242,6 +241,8 @@ namespace CarRent.Migrations
 
             modelBuilder.Entity("CarRent.Car.Domain.CarClass", b =>
                 {
+                    b.Navigation("Cars");
+
                     b.Navigation("Reservation");
                 });
 

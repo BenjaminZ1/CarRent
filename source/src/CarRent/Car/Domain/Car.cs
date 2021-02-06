@@ -1,4 +1,5 @@
-﻿using CarRent.Common.Domain;
+﻿using System.ComponentModel.DataAnnotations.Schema;
+using CarRent.Common.Domain;
 
 namespace CarRent.Car.Domain
 {
@@ -8,6 +9,7 @@ namespace CarRent.Car.Domain
         public string Brand { get; set; }
         public string Model { get; set; }
         public string Type { get; set; }
+        [NotMapped]
         public int ClassId { get; set; }
 
         public virtual CarSpecification Specification { get; set; }

@@ -32,7 +32,8 @@ namespace CarRent.Migrations
                     Brand = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Model = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Type = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    ClassRef = table.Column<int>(type: "int", nullable: false)
+                    ClassRef = table.Column<int>(type: "int", nullable: false),
+                    Guid = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -76,7 +77,8 @@ namespace CarRent.Migrations
                     StartDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     EndDate = table.Column<DateTime>(type: "datetime(6)", nullable: false),
                     ClassRef = table.Column<int>(type: "int", nullable: true),
-                    UserRef = table.Column<int>(type: "int", nullable: true)
+                    UserRef = table.Column<int>(type: "int", nullable: true),
+                    Guid = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -85,8 +87,7 @@ namespace CarRent.Migrations
                         name: "FK_Reservation_Class_ClassRef",
                         column: x => x.ClassRef,
                         principalTable: "Class",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.SetNull);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -100,7 +101,8 @@ namespace CarRent.Migrations
                     Street = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Place = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
                     Plz = table.Column<string>(type: "longtext CHARACTER SET utf8mb4", nullable: true),
-                    ReservationId = table.Column<int>(type: "int", nullable: true)
+                    ReservationId = table.Column<int>(type: "int", nullable: true),
+                    Guid = table.Column<Guid>(type: "char(36)", nullable: false)
                 },
                 constraints: table =>
                 {
