@@ -1,6 +1,4 @@
-﻿using CarRent.Car.Domain;
-using CarRent.Car.Infrastructure;
-using CarRent.Common.Infrastructure;
+﻿using CarRent.Common.Infrastructure;
 using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.User.Infrastructure

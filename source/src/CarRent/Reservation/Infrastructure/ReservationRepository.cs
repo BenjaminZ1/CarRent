@@ -1,10 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using CarRent.Reservation.Domain;
 using Microsoft.EntityFrameworkCore;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CarRent.Reservation.Infrastructure
 {

@@ -1,6 +1,4 @@
 ﻿using System;
-using CarRent.Car.Domain;
-using CarRent.Common.Domain;
 
 namespace CarRent.Car.Application
 {
@@ -18,7 +16,7 @@ namespace CarRent.Car.Application
 
         public CarDto(Domain.Car x)
         {
-           
+
             this.Specification ??= new CarSpecificationDto();
             this.Class ??= new CarClassDto();
 

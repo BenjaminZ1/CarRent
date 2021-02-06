@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using CarRent.Car.Infrastructure;
 using CarRent.Reservation.Infrastructure;
 using CarRent.User.Infrastructure;

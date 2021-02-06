@@ -1,10 +1,10 @@
-﻿using System;
+﻿using CarRent.Common.Application;
+using CarRent.User.Domain;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRent.Common.Application;
-using CarRent.User.Domain;
-using Microsoft.EntityFrameworkCore;
 
 namespace CarRent.User.Infrastructure
 {

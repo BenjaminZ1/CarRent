@@ -1,7 +1,6 @@
-﻿using System;
-using CarRent.Car.Application;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Application;
 using CarRent.User.Application;
+using System;
 
 namespace CarRent.Reservation.Application
 {

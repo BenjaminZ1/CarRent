@@ -1,11 +1,10 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using CarRent.User.Application;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRent.Car.Application;
-using CarRent.User.Application;
-using Microsoft.AspNetCore.Http;
 
 namespace CarRent.User.Controllers
 {

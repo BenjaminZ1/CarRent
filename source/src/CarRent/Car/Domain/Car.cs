@@ -1,5 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
-using CarRent.Common.Domain;
+﻿using CarRent.Common.Domain;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace CarRent.Car.Domain
 {

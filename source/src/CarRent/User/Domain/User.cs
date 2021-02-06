@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using CarRent.Common.Domain;
+﻿using CarRent.Common.Domain;
+using System.Collections.Generic;
 
 namespace CarRent.User.Domain
 {

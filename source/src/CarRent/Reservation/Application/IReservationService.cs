@@ -1,7 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using CarRent.Common.Application;
+using System.Collections.Generic;
 using System.Threading.Tasks;
-using CarRent.Common.Application;
-using CarRent.User.Application;
 
 namespace CarRent.Reservation.Application
 {

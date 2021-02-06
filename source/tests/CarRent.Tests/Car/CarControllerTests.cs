@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRent.Car.Application;
+﻿using CarRent.Car.Application;
 using CarRent.Car.Controllers;
 using CarRent.Car.Domain;
 using CarRent.Common.Application;
@@ -12,6 +6,10 @@ using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRent.Tests
 {
@@ -149,7 +147,7 @@ namespace CarRent.Tests
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(400);
         }
-    
+
         [Test]
         public async Task Get_WhenExceptionIsThrown_ReturnsCorrectResult()
         {
@@ -361,9 +359,9 @@ namespace CarRent.Tests
             var carServiceFake = A.Fake<ICarService>();
             var carController = new CarController(carServiceFake);
             var responseDtoStub = new ResponseDto();
-            
+
             A.CallTo(() => carServiceFake.Save(testCar)).Returns(responseDtoStub);
-            
+
             //act
             var actionResult = await carController.Save(testCar);
 

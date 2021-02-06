@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRent.Car.Application;
+﻿using CarRent.Car.Application;
 using CarRent.Car.Domain;
-using CarRent.Car.Infrastructure;
 using CarRent.Common.Application;
 using FakeItEasy;
 using FluentAssertions;
-using Microsoft.EntityFrameworkCore;
-using MockQueryable.FakeItEasy;
 using NUnit.Framework;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 
 namespace CarRent.Tests
@@ -107,7 +102,7 @@ namespace CarRent.Tests
 
             var expectedResult = new CarDto(carStub);
 
-            
+
 
             //act
             var result = await carService.Get(id);
@@ -145,7 +140,7 @@ namespace CarRent.Tests
             var carService = new CarService(carRepositoryFake, carClassFactoryFake);
             A.CallTo(() => carRepositoryFake.GetAll()).Returns(carsStub);
 
-            
+
             //act
             var result = await carService.GetAll();
 

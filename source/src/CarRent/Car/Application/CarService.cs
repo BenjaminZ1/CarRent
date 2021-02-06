@@ -1,5 +1,4 @@
-﻿using System;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using System.Collections.Generic;
 using System.Linq;
@@ -46,13 +45,16 @@ namespace CarRent.Car.Application
 
             if (car.Class == null)
             {
-                responseDto = new ResponseDto() {Flag = false, Message =
+                responseDto = new ResponseDto()
+                {
+                    Flag = false,
+                    Message =
                     $"CarClass with ID {car.ClassId} is not allowed"
                 };
 
                 return responseDto;
             }
-            
+
             responseDto = await _db.Save(car);
             return responseDto;
         }

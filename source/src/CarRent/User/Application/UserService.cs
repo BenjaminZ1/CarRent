@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
+﻿using CarRent.Common.Application;
+using CarRent.User.Domain;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using CarRent.Common.Application;
-using CarRent.User.Domain;
 
 namespace CarRent.User.Application
 {

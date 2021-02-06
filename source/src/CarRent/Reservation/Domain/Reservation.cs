@@ -1,5 +1,5 @@
-﻿using System;
-using CarRent.Common.Domain;
+﻿using CarRent.Common.Domain;
+using System;
 
 namespace CarRent.Reservation.Domain
 {
@@ -16,7 +16,7 @@ namespace CarRent.Reservation.Domain
 
         public double TotalDays()
         {
-           return (EndDate - StartDate).TotalDays;
+            return (EndDate - StartDate).TotalDays;
         }
 
         public decimal TotalFee()
