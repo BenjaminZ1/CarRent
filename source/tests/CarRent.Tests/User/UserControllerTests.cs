@@ -152,5 +152,25 @@ namespace CarRent.Tests.User
             result.Should().NotBeNull();
             result.StatusCode.Should().Be(404);
         }
+
+        [Test]
+        public async Task GetAll_WhenExceptionIsThrown_ReturnsCorrectResult()
+        {
+            //arrange
+            var userServiceFake = A.Fake<IUserService>();
+            var userController = new UserController(userServiceFake);
+
+            A.CallTo(() => userServiceFake.GetAll()).Throws(new InvalidOperationException
+                ("Ich bin eine TestExcpetion"));
+
+            var actionResult = await userController.GetAll();
+
+            //assert
+            actionResult.Should().BeOfType(typeof(ActionResult<IEnumerable<CarDto>>));
+            var result = actionResult.Result as ObjectResult;
+            result.Should().NotBeNull();
+            result.StatusCode.Should().Be(500);
+            result.Value.Should().Be("Error retrieving data from the database");
+        }
     }
 }
