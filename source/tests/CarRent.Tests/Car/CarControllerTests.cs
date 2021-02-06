@@ -11,7 +11,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarRent.Tests
+namespace CarRent.Tests.Car
 {
     [TestFixture]
     class CarControllerTests
@@ -342,7 +342,7 @@ namespace CarRent.Tests
         {
             //arrange
             var carClassFactory = new CarClassFactory();
-            var testCar = new Car.Domain.Car()
+            var testCar = new CarRent.Car.Domain.Car()
             {
                 Brand = "TestBrand4",
                 Class = carClassFactory.GetCarClass(1),
@@ -376,7 +376,7 @@ namespace CarRent.Tests
         public async Task Save_WhenCarIsNull_ReturnsCorrectResult()
         {
             //arrange
-            Car.Domain.Car testCar = null;
+            CarRent.Car.Domain.Car testCar = null;
             var carServiceFake = A.Fake<ICarService>();
             var carController = new CarController(carServiceFake);
 
@@ -395,7 +395,7 @@ namespace CarRent.Tests
         {
             //arrange
             var carClassFactory = new CarClassFactory();
-            var testCar = new Car.Domain.Car()
+            var testCar = new CarRent.Car.Domain.Car()
             {
                 Brand = "TestBrand4",
                 Class = carClassFactory.GetCarClass(1),

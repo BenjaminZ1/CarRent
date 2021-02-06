@@ -8,29 +8,19 @@ using NUnit.Framework;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarRent.Tests
+namespace CarRent.Tests.Car
 {
     [SetUpFixture]
     public class SetupClass
     {
-        //private IConfigurationRoot _configuration;
         private static DbContextOptions<BaseDbContext> _options;
 
         [OneTimeSetUp]
         public void BaseDbContext_CreateDb()
         {
-            //var builder = new ConfigurationBuilder()
-            //    .SetBasePath(Directory.GetCurrentDirectory())
-            //    .AddJsonFile("appsettings.json");
-
-            //_configuration = builder.Build();
-
             _options = new DbContextOptionsBuilder<BaseDbContext>()
                 .UseInMemoryDatabase("testDatabase")
                 .Options;
-            //.UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
-            //    ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
-            //.Options;
 
             using var context = new BaseDbContext(_options);
             context.Database.EnsureDeleted();
@@ -48,27 +38,16 @@ namespace CarRent.Tests
     [TestFixture]
     class CarRespositoryTests
     {
-        //private IConfigurationRoot _configuration;
         private DbContextOptions<CarDbContext> _options;
-        //private IConfigurationBuilder _builder;
 
         [OneTimeSetUp]
         public void CarDbContext_BuildDbContext()
         {
             SetupClass.ResetDb();
 
-            //_builder = new ConfigurationBuilder()
-            //.SetBasePath(Directory.GetCurrentDirectory())
-            //.AddJsonFile("appsettings.json");
-
-            //_configuration = _builder.Build();
-
             _options = new DbContextOptionsBuilder<CarDbContext>()
                 .UseInMemoryDatabase("testDatabase")
                 .Options;
-            //.UseMySql(_configuration.GetConnectionString("CarRentTestDatabase"),
-            //    ServerVersion.AutoDetect(_configuration.GetConnectionString("CarRentTestDatabase")))
-            //.Options;
         }
 
         [SetUp]
@@ -82,7 +61,7 @@ namespace CarRent.Tests
             var carClassFactory = new CarClassFactory();
 
             using var context = new CarDbContext(_options);
-            context.Car.Add(new Car.Domain.Car
+            context.Car.Add(new CarRent.Car.Domain.Car
             {
                 Brand = "TestBrand",
                 Model = "TestModel",
@@ -114,7 +93,7 @@ namespace CarRent.Tests
             ICarRepository carRepository = new CarRepository(context);
 
             var carClassFactory = new CarClassFactory();
-            var car = new Car.Domain.Car
+            var car = new CarRent.Car.Domain.Car
             {
                 Brand = "TestBrand",
                 Model = "TestModel",
@@ -147,7 +126,7 @@ namespace CarRent.Tests
             ICarRepository carRepository = new CarRepository(context);
 
             var carClassFactory = new CarClassFactory();
-            var car = new Car.Domain.Car
+            var car = new CarRent.Car.Domain.Car
             {
                 Id = 1,
                 Brand = "TestBrandNeu",
@@ -183,7 +162,7 @@ namespace CarRent.Tests
             var result = await carRepository.Get(id);
 
             //assert
-            result.Should().BeOfType(typeof(Car.Domain.Car));
+            result.Should().BeOfType(typeof(CarRent.Car.Domain.Car));
             result.Id.Should().Be(id);
         }
 
@@ -200,7 +179,7 @@ namespace CarRent.Tests
             var result = await carRepository.GetAll();
 
             //assert
-            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(1);
         }
 
@@ -267,8 +246,10 @@ namespace CarRent.Tests
             //act
             var result = await carRepository.Search(brand, model);
 
-            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(1);
+            result[0].Brand.Should().Be(brand);
+            result[0].Model.Should().Be(model);
         }
 
         [Test]
@@ -285,8 +266,9 @@ namespace CarRent.Tests
             //act
             var result = await carRepository.Search(brand, null);
 
-            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(1);
+            result[0].Brand.Should().Be(brand);
         }
 
         [Test]
@@ -303,8 +285,27 @@ namespace CarRent.Tests
             //act
             var result = await carRepository.Search(null, model);
 
-            result.Should().BeOfType(typeof(List<Car.Domain.Car>));
+            result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(1);
+            result[0].Model.Should().Be(model);
+        }
+
+        [Test]
+        public async Task Search_WhenNotFound_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            string model = "gibtesnicht";
+
+
+            await using var context = new CarDbContext(_options);
+            ICarRepository carRepository = new CarRepository(context);
+
+            //act
+            var result = await carRepository.Search(null, model);
+
+            result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
+            result.Count.Should().Be(0);
         }
 
     }

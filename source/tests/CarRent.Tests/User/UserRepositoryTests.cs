@@ -10,7 +10,7 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace CarRent.Tests.Reservation
+namespace CarRent.Tests.User
 {
     [SetUpFixture]
     public class SetupClass
@@ -59,7 +59,7 @@ namespace CarRent.Tests.Reservation
         {
             var carClassFactory = new CarClassFactory();
             using var context = new UserDbContext(_options);
-            context.User.Add(new User.Domain.User()
+            context.User.Add(new CarRent.User.Domain.User()
             {
                 Name = "NameTest",
                 LastName = "LastNameTest",
@@ -94,7 +94,7 @@ namespace CarRent.Tests.Reservation
             IUserRepository userRepository = new UserRepository(context);
 
             var carClassFactory = new CarClassFactory();
-            var user = new User.Domain.User()
+            var user = new CarRent.User.Domain.User()
             {
                 Name = "NameTest2",
                 LastName = "LastNameTest2",
@@ -133,7 +133,7 @@ namespace CarRent.Tests.Reservation
             IUserRepository userRepository = new UserRepository(context);
 
             var carClassFactory = new CarClassFactory();
-            var user = new User.Domain.User()
+            var user = new CarRent.User.Domain.User()
             {
                 Id = 1,
                 Name = "NameTest2",
@@ -170,7 +170,7 @@ namespace CarRent.Tests.Reservation
             var result = await userRepository.Get(id);
 
             //assert
-            result.Should().BeOfType(typeof(User.Domain.User));
+            result.Should().BeOfType(typeof(CarRent.User.Domain.User));
             result.Id.Should().Be(id);
         }
 
@@ -187,7 +187,7 @@ namespace CarRent.Tests.Reservation
             var result = await userRepository.GetAll();
 
             //assert
-            result.Should().BeOfType(typeof(List<User.Domain.User>));
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
         }
 
@@ -239,22 +239,176 @@ namespace CarRent.Tests.Reservation
         }
 
         [Test]
-        public async Task Search_UserBrandAndModel_ReturnsCorrectResult()
+        public async Task Search_UserIdNameLastName_ReturnsCorrectResult()
         {
             //arrange
             AddDbTestEntries();
-            string brand = "TestBrand";
-            string model = "TestModel";
+
+            int? id = 1;
+            string name = "NameTest";
+            string lastName = "LastNameTest";
 
 
             await using var context = new UserDbContext(_options);
             IUserRepository userRepository = new UserRepository(context);
 
             //act
-            //var result = await userRepository.Search();
+            var result = await userRepository.Search(id, name, lastName);
 
-            //result.Should().BeOfType(typeof(List<Car.Domain.Car>));
-            //result.Count.Should().Be(1);
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(1);
+            result[0].Id.Should().Be(id);
+            result[0].Name.Should().Be(name);
+            result[0].LastName.Should().Be(lastName);
+        }
+
+        [Test]
+        public async Task Search_UserNameLastName_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+
+            string name = "NameTest";
+            string lastName = "LastNameTest";
+
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Search(null, name, lastName);
+
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(1);
+            result[0].Id.Should().Be(1);
+            result[0].Name.Should().Be(name);
+            result[0].LastName.Should().Be(lastName);
+        }
+
+        [Test]
+        public async Task Search_UserLastName_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+
+            string lastName = "LastNameTest";
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Search(null, null, lastName);
+
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(1);
+            result[0].Id.Should().Be(1);
+            result[0].Name.Should().Be("NameTest");
+            result[0].LastName.Should().Be(lastName);
+        }
+
+        [Test]
+        public async Task Search_UserId_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            int? id = 1;
+
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Search(id, null, null);
+
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(1);
+            result[0].Id.Should().Be(1);
+            result[0].Name.Should().Be("NameTest");
+            result[0].LastName.Should().Be("LastNameTest");
+        }
+
+        [Test]
+        public async Task Search_UserIdName_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            int? id = 1;
+            string name = "NameTest";
+
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Search(id, name, null);
+
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(1);
+            result[0].Id.Should().Be(id);
+            result[0].Name.Should().Be(name);
+            result[0].LastName.Should().Be("LastNameTest");
+        }
+
+        [Test]
+        public async Task Search_UserIdLastName_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            int? id = 1;
+            string lastName = "LastNameTest";
+
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Search(id, null, lastName);
+
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(1);
+            result[0].Id.Should().Be(id);
+            result[0].Name.Should().Be("NameTest");
+            result[0].LastName.Should().Be(lastName);
+        }
+
+        [Test]
+        public async Task Search_UserName_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+
+            string name = "NameTest";
+
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Search(null, name, null);
+
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(1);
+            result[0].Id.Should().Be(1);
+            result[0].Name.Should().Be(name);
+            result[0].LastName.Should().Be("LastNameTest");
+        }
+
+        [Test]
+        public async Task Search_WhenNotFound_ReturnsCorrectResult()
+        {
+            //arrange
+            AddDbTestEntries();
+            int? id = 2;
+
+
+            await using var context = new UserDbContext(_options);
+            IUserRepository userRepository = new UserRepository(context);
+
+            //act
+            var result = await userRepository.Search(id, null, null);
+
+            result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
+            result.Count.Should().Be(0);
         }
     }
 }

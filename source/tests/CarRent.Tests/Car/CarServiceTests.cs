@@ -9,19 +9,19 @@ using System.Linq;
 using System.Threading.Tasks;
 
 
-namespace CarRent.Tests
+namespace CarRent.Tests.Car
 {
     [TestFixture]
     class CarServiceTests
     {
-        private List<Car.Domain.Car> _carTestData;
+        private List<CarRent.Car.Domain.Car> _carTestData;
         [SetUp]
         public void GenerateTestData()
         {
             var carClassFactory = new CarClassFactory();
-            _carTestData = new List<Car.Domain.Car>
+            _carTestData = new List<CarRent.Car.Domain.Car>
             {
-                new Car.Domain.Car()
+                new CarRent.Car.Domain.Car()
                 {
                     Id = 1,
                     Brand = "TestBrand",
@@ -36,7 +36,7 @@ namespace CarRent.Tests
                         Year = 2017
                     }
                 },
-                new Car.Domain.Car()
+                new CarRent.Car.Domain.Car()
                 {
                     Id = 2,
                     Brand = "TestBrand2",
@@ -51,7 +51,7 @@ namespace CarRent.Tests
                         Year = 2007
                     }
                 },
-                new Car.Domain.Car()
+                new CarRent.Car.Domain.Car()
                 {
                     Id = 3,
                     Brand = "TestBrand3",
