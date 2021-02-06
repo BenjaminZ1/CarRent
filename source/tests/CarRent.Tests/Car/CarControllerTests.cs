@@ -16,11 +16,11 @@ namespace CarRent.Tests.Car
     [TestFixture]
     class CarControllerTests
     {
-        private List<CarDto> carDtoTestData;
+        private List<CarDto> _carDtoTestData;
         [OneTimeSetUp]
         public void GenerateTestData()
         {
-            carDtoTestData = new List<CarDto>()
+            _carDtoTestData = new List<CarDto>()
             {
                 new CarDto()
                 {
@@ -81,7 +81,7 @@ namespace CarRent.Tests.Car
                         EnginePower = 180,
                         Year = 2017
                     }
-                },
+                }
             };
         }
 
@@ -91,7 +91,7 @@ namespace CarRent.Tests.Car
             //arrange
             int? id = 1;
             var carServiceFake = A.Fake<ICarService>();
-            var carDtoStub = carDtoTestData[0];
+            var carDtoStub = _carDtoTestData[0];
             var carController = new CarController(carServiceFake);
 
             A.CallTo(() => carServiceFake.Get(id)).Returns(carDtoStub);
@@ -179,10 +179,10 @@ namespace CarRent.Tests.Car
         {
             //arrange
             var carServiceFake = A.Fake<ICarService>();
-            var carDtoStub = carDtoTestData;
+            var carDtoStubs = _carDtoTestData;
             var carController = new CarController(carServiceFake);
 
-            A.CallTo(() => carServiceFake.GetAll()).Returns(carDtoStub);
+            A.CallTo(() => carServiceFake.GetAll()).Returns(carDtoStubs);
 
             //act
             var actionResult = await carController.GetAll();
@@ -199,10 +199,10 @@ namespace CarRent.Tests.Car
         {
             //arrange
             var carServiceFake = A.Fake<ICarService>();
-            var carDtoStub = new List<CarDto>();
+            var carDtoStubs = new List<CarDto>();
             var carController = new CarController(carServiceFake);
 
-            A.CallTo(() => carServiceFake.GetAll()).Returns(carDtoStub);
+            A.CallTo(() => carServiceFake.GetAll()).Returns(carDtoStubs);
 
             //act
             var actionResult = await carController.GetAll();
@@ -248,10 +248,10 @@ namespace CarRent.Tests.Car
             var carServiceFake = A.Fake<ICarService>();
             var carController = new CarController(carServiceFake);
 
-            var expectedResult = carDtoTestData.Where(c => c.Brand == brand & c.Model == model);
+            var expectedResult = _carDtoTestData.Where(c => c.Brand == brand & c.Model == model);
 
             A.CallTo(() => carServiceFake.Search(brand, model))
-                .Returns(carDtoTestData.Where(c => c.Brand == brand & c.Model == model));
+                .Returns(_carDtoTestData.Where(c => c.Brand == brand & c.Model == model));
 
             //act
             var actionResult = await carController.Search(brand, model);
@@ -273,10 +273,10 @@ namespace CarRent.Tests.Car
             var carServiceFake = A.Fake<ICarService>();
             var carController = new CarController(carServiceFake);
 
-            var expectedResult = carDtoTestData.Where(c => c.Brand == brand | c.Model == model);
+            var expectedResult = _carDtoTestData.Where(c => c.Brand == brand | c.Model == model);
 
             A.CallTo(() => carServiceFake.Search(brand, model))
-                .Returns(carDtoTestData.Where(c => c.Brand == brand | c.Model == model));
+                .Returns(_carDtoTestData.Where(c => c.Brand == brand | c.Model == model));
 
             //act
             var actionResult = await carController.Search(brand, model);
@@ -298,10 +298,10 @@ namespace CarRent.Tests.Car
             var carServiceFake = A.Fake<ICarService>();
             var carController = new CarController(carServiceFake);
 
-            var expectedResult = carDtoTestData.Where(c => c.Brand == brand & c.Model == model);
+            var expectedResult = _carDtoTestData.Where(c => c.Brand == brand & c.Model == model);
 
             A.CallTo(() => carServiceFake.Search(brand, model))
-                .Returns(carDtoTestData.Where(c => c.Brand == brand & c.Model == model));
+                .Returns(_carDtoTestData.Where(c => c.Brand == brand & c.Model == model));
 
             //act
             var actionResult = await carController.Search(brand, model);

@@ -20,7 +20,7 @@ namespace CarRent.User.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<UserDto>> GetUser(int? id)
+        public async Task<ActionResult<UserDto>> Get(int? id)
         {
             if (id == null)
             {
@@ -42,7 +42,7 @@ namespace CarRent.User.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<UserDto>>> GetUsers()
+        public async Task<ActionResult<IEnumerable<UserDto>>> GetAll()
         {
             try
             {
