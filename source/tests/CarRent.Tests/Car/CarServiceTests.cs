@@ -102,8 +102,6 @@ namespace CarRent.Tests.Car
 
             var expectedResult = new CarDto(carStub);
 
-
-
             //act
             var result = await carService.Get(id);
 
@@ -140,12 +138,14 @@ namespace CarRent.Tests.Car
             var carService = new CarService(carRepositoryFake, carClassFactoryFake);
             A.CallTo(() => carRepositoryFake.GetAll()).Returns(carsStub);
 
+            var expectedResult = carsStub.Select(c => new CarDto(c));
+
 
             //act
             var result = await carService.GetAll();
 
             //assert
-            A.CallTo(() => carRepositoryFake.GetAll()).MustHaveHappenedOnceExactly();
+            result.Should().BeEquivalentTo(expectedResult);
         }
 
         [Test]
@@ -183,7 +183,6 @@ namespace CarRent.Tests.Car
             var expectedResult = carsStub.Where(c => c.Brand == brand & c.Model == model)
                 .Select(c => new CarDto(c))
                 .ToList();
-
 
             var carService = new CarService(carRepositoryFake, carClassFactoryFake);
             A.CallTo(() => carRepositoryFake.Search(brand, model))
@@ -252,7 +251,6 @@ namespace CarRent.Tests.Car
         {
             //arrange
             int? id = 1;
-            var carsStub = _carTestData;
 
             var carRepositoryFake = A.Fake<ICarRepository>();
             var carClassFactoryFake = A.Fake<CarClassFactory>();
