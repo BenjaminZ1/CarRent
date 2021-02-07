@@ -8,7 +8,7 @@ on:
 
 jobs:
   build:
-    name: build, test, analyze
+    name: build, test
 
     runs-on: ubuntu-latest
 
