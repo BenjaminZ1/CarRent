@@ -148,7 +148,7 @@ namespace CarRent.Tests.User
         public async Task Search_WhenOk_GetsCalledOnce()
         {
             //arrange
-            var usersStub = _userTestData;
+            var usersStubs = _userTestData;
             int? id = 1;
             string name = "NameTest";
             string lastname = "LastNameTest";
@@ -156,7 +156,7 @@ namespace CarRent.Tests.User
 
             var userService = new UserService(userRepositoryFake);
             A.CallTo(() => userRepositoryFake.Search(id, name, lastname))
-                .Returns(usersStub.Where(u => u.Id == id & u.Name == name & u.LastName == lastname)
+                .Returns(usersStubs.Where(u => u.Id == id & u.Name == name & u.LastName == lastname)
                     .ToList());
 
             //act
@@ -221,7 +221,6 @@ namespace CarRent.Tests.User
             var userRepositoryFake = A.Fake<IUserRepository>();
 
             ResponseDto responseDto = new ResponseDto();
-            var expectedResult = responseDto;
 
             var userService = new UserService(userRepositoryFake);
             A.CallTo(() => userRepositoryFake.Delete(id)).Returns(responseDto);
