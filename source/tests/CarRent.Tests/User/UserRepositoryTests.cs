@@ -216,7 +216,7 @@ namespace CarRent.Tests.User
         }
 
         [Test]
-        public async Task Delete_NotExistingUser_ReturnsCorrectResult()
+        public async Task Delete_WhenNotExisting_ReturnsCorrectResult()
         {
             //arrange
             int id = 1;

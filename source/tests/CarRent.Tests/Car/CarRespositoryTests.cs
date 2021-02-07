@@ -209,7 +209,7 @@ namespace CarRent.Tests.Car
         }
 
         [Test]
-        public async Task Delete_NotExistingCar_ReturnsCorrectResult()
+        public async Task Delete_WhenNotExisting_ReturnsCorrectResult()
         {
             //arrange
             int id = 1;
