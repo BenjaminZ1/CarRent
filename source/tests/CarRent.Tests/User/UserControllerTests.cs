@@ -311,7 +311,7 @@ namespace CarRent.Tests.User
         }
 
         [Test]
-        public async Task Save_WhenCarIsNull_ReturnsCorrectResult()
+        public async Task Save_WhenUserIsNull_ReturnsCorrectResult()
         {
             //arrange
             CarRent.User.Domain.User testUser = null;

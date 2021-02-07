@@ -14,6 +14,8 @@ namespace CarRent.Reservation.Application
         public CarClassDto Class { get; set; }
         public UserDto User { get; set; }
 
+        public ReservationDto() { }
+
         public ReservationDto(Domain.Reservation reservation)
         {
             this.Class ??= new CarClassDto();

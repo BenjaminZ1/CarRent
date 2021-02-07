@@ -20,7 +20,7 @@ namespace CarRent.Reservation.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<ReservationDto>> GetCar(int? id)
+        public async Task<ActionResult<ReservationDto>> Get(int? id)
         {
             if (id == null)
             {
@@ -41,7 +41,7 @@ namespace CarRent.Reservation.Controllers
             }
         }
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<ReservationDto>>> GetCars()
+        public async Task<ActionResult<IEnumerable<ReservationDto>>> GetAll()
         {
             try
             {
