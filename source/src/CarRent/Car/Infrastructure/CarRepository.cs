@@ -148,8 +148,8 @@ namespace CarRent.Car.Infrastructure
         private async Task<CarClass> FindOrAddNewCarClass(CarClass carClass)
         {
             var findClass = await _db.Class.SingleOrDefaultAsync(cls =>
-                cls.Id == carClass.Id &
-                cls.Description == carClass.Description &
+                cls.Id == carClass.Id &&
+                cls.Description == carClass.Description &&
                 cls.PricePerDay == carClass.PricePerDay);
 
             return findClass ?? carClass;
