@@ -38,29 +38,29 @@ namespace CarRent.User.Infrastructure
         {
             IQueryable<Domain.User> query = _db.User;
 
-            if (id != null & string.IsNullOrEmpty(name) & string.IsNullOrEmpty(lastname))
+            if (id != null && string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastname))
             {
                 query = query.Where(u => u.Id == id);
             }
-            else if (id != null & !string.IsNullOrEmpty(name) & string.IsNullOrEmpty(lastname))
+            else if (id != null && !string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastname))
             {
-                query = query.Where(u => u.Id == id & u.Name.Contains(name));
+                query = query.Where(u => u.Id == id && u.Name.Contains(name));
             }
-            else if (id != null & string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
+            else if (id != null && string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastname))
             {
-                query = query.Where(u => u.Id == id & u.LastName.Contains(lastname));
+                query = query.Where(u => u.Id == id && u.LastName.Contains(lastname));
             }
-            else if (id == null & !string.IsNullOrEmpty(name) & string.IsNullOrEmpty(lastname))
+            else if (id == null && !string.IsNullOrEmpty(name) && string.IsNullOrEmpty(lastname))
             {
                 query = query.Where(u => u.Name.Contains(name));
             }
-            else if (id == null & string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
+            else if (id == null && string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastname))
             {
                 query = query.Where(u => u.LastName.Contains(lastname));
             }
-            else if (id != null & !string.IsNullOrEmpty(name) & !string.IsNullOrEmpty(lastname))
+            else if (id != null && !string.IsNullOrEmpty(name) && !string.IsNullOrEmpty(lastname))
             {
-                query = query.Where(u => u.Id == id & u.Name.Contains(name) & u.LastName.Contains(lastname));
+                query = query.Where(u => u.Id == id && u.Name.Contains(name) && u.LastName.Contains(lastname));
             }
 
             return await query.ToListAsync();

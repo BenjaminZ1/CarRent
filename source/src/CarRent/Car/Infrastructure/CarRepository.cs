@@ -44,17 +44,17 @@ namespace CarRent.Car.Infrastructure
             IQueryable<Domain.Car> query = _db.Car.Include(c => c.Specification)
                 .Include(c => c.Class);
 
-            if (!string.IsNullOrEmpty(brand) & string.IsNullOrEmpty(model))
+            if (!string.IsNullOrEmpty(brand) && string.IsNullOrEmpty(model))
             {
                 query = query.Where(c => c.Brand.Contains(brand));
             }
-            else if (!string.IsNullOrEmpty(model) & string.IsNullOrEmpty(brand))
+            else if (!string.IsNullOrEmpty(model) && string.IsNullOrEmpty(brand))
             {
                 query = query.Where(c => c.Model.Contains(model));
             }
-            else if (!string.IsNullOrEmpty(model) & !string.IsNullOrEmpty(brand))
+            else if (!string.IsNullOrEmpty(model) && !string.IsNullOrEmpty(brand))
             {
-                query = query.Where(c => c.Brand.Contains(brand) & c.Model.Contains(model));
+                query = query.Where(c => c.Brand.Contains(brand) && c.Model.Contains(model));
             }
 
             return await query.ToListAsync();
@@ -148,8 +148,8 @@ namespace CarRent.Car.Infrastructure
         private async Task<CarClass> FindOrAddNewCarClass(CarClass carClass)
         {
             var findClass = await _db.Class.SingleOrDefaultAsync(cls =>
-                cls.Id == carClass.Id &&
-                cls.Description == carClass.Description &&
+                cls.Id == carClass.Id &
+                cls.Description == carClass.Description &
                 cls.PricePerDay == carClass.PricePerDay);
 
             return findClass ?? carClass;
