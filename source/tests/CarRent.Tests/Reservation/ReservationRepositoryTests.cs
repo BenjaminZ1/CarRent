@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using CarRent.Common.Infrastructure;
 using CarRent.Reservation.Domain;
 using CarRent.Reservation.Infrastructure;
-using CarRent.User.Domain;
-using CarRent.User.Infrastructure;
 using FluentAssertions;
 using Microsoft.EntityFrameworkCore;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace CarRent.Tests.Reservation
 {
@@ -101,7 +98,7 @@ namespace CarRent.Tests.Reservation
                 StartDate = DateTime.Parse("08.02.2021 00:00:00"),
                 EndDate = DateTime.Parse("11.02.2021 00:00:00"),
                 Class = carClassFactory.GetCarClass(1),
-                User = new CarRent.User.Domain.User() 
+                User = new CarRent.User.Domain.User()
                 {
                     Name = "NameTest2",
                     LastName = "LastNameTest2",

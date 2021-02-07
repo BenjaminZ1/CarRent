@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRent.Car.Application;
-using CarRent.Car.Controllers;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using CarRent.User.Application;
 using CarRent.User.Controllers;
@@ -13,6 +6,10 @@ using FakeItEasy;
 using FluentAssertions;
 using Microsoft.AspNetCore.Mvc;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRent.Tests.User
 {

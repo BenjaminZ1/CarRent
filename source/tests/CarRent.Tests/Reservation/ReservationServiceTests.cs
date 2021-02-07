@@ -1,17 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using CarRent.Reservation.Application;
 using CarRent.Reservation.Domain;
-using CarRent.User.Application;
-using CarRent.User.Domain;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRent.Tests.Reservation
 {

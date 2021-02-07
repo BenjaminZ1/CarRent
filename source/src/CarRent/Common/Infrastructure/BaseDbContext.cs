@@ -38,41 +38,6 @@ namespace CarRent.Common.Infrastructure
             modelBuilder.ApplyConfiguration(new CarConfiguration());
             modelBuilder.ApplyConfiguration(new UserConfiguration());
             modelBuilder.ApplyConfiguration(new ReservationConfiguration());
-
-            //modelBuilder.Entity<Car.Domain.Car>()
-            //    .Ignore(c => c.ClassId)
-            //    .HasOne(c => c.Specification)
-            //    .WithOne(s => s.Car)
-            //    .HasForeignKey<CarSpecification>(s => s.CarRef)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
-            //modelBuilder.Entity<Car.Domain.Car>()
-            //    .Ignore(c => c.ClassId)
-            //    .HasOne(c => c.Class)
-            //    .WithMany(cls => cls.Cars)
-            //    .IsRequired(true)
-            //    .HasForeignKey(c => c.ClassRef)
-            //    .OnDelete(DeleteBehavior.Restrict);
-
-            //modelBuilder.Entity<User.Domain.User>()
-            //    .HasMany(u => u.Reservations)
-            //    .WithOne(r => r.User)
-            //    .OnDelete(DeleteBehavior.Cascade);
-
-
-
-            //modelBuilder.Entity<Reservation.Domain.Reservation>()
-            //    .HasOne(r => r.Class)
-            //    .WithOne(c => c.Reservation)
-            //    .HasForeignKey<Reservation.Domain.Reservation>(r => r.ClassRef)
-            //    .OnDelete(DeleteBehavior.NoAction);
-
-            //modelBuilder.Entity<Reservation.Domain.Reservation>()
-            //    .HasOne(r => r.User)
-            //    .WithMany(u => u.Reservations)
-            //    .HasForeignKey(r => r.UserRef);
-
-
         }
     }
 

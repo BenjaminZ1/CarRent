@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using CarRent.Car.Application;
-using CarRent.Car.Domain;
+﻿using CarRent.Car.Domain;
 using CarRent.Common.Application;
 using CarRent.User.Application;
 using CarRent.User.Domain;
 using FakeItEasy;
 using FluentAssertions;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace CarRent.Tests.User
 {
@@ -96,8 +94,8 @@ namespace CarRent.Tests.User
             var userStub = _userTestData[0];
             var userRepositoryFake = A.Fake<IUserRepository>();
 
-           var userService = new UserService(userRepositoryFake);
-           A.CallTo(() => userRepositoryFake.Get(id)).Returns(userStub);
+            var userService = new UserService(userRepositoryFake);
+            A.CallTo(() => userRepositoryFake.Get(id)).Returns(userStub);
 
             var expectedResult = new UserDto(userStub);
 
