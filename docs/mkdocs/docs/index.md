@@ -1,11 +1,11 @@
-# Willkommen zu CarRent
+# Welcome to CarRent
 
-Das Automietsystem der nächsten Generation.
+The next-generation car-rent-system
 
-## Commands
+## Features
 
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
+* Easy to use
+* Available everywhere
 * `mkdocs build` - Build the documentation site.
 * `mkdocs -h` - Print help message and exit.
 
