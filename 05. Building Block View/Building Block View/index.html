@@ -1,0 +1,807 @@
+
+<!DOCTYPE html>
+
+<html class="no-js" lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/>
+<link href="../../assets/images/favicon.png" rel="shortcut icon"/>
+<meta content="mkdocs-1.1.2, mkdocs-material-6.2.8" name="generator"/>
+<title>Building Block View - Car Rent!</title>
+<link href="../../assets/stylesheets/main.cb6bc1d0.min.css" rel="stylesheet"/>
+<link href="../../assets/stylesheets/palette.39b8e14a.min.css" rel="stylesheet"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,400i,700%7CRoboto+Mono&amp;display=fallback" rel="stylesheet"/>
+<style>body,input{font-family:"Roboto",-apple-system,BlinkMacSystemFont,Helvetica,Arial,sans-serif}code,kbd,pre{font-family:"Roboto Mono",SFMono-Regular,Consolas,Menlo,monospace}</style>
+</head>
+<body data-md-color-accent="none" data-md-color-primary="none" data-md-color-scheme="" dir="ltr">
+<input autocomplete="off" class="md-toggle" data-md-toggle="drawer" id="__drawer" type="checkbox"/>
+<input autocomplete="off" class="md-toggle" data-md-toggle="search" id="__search" type="checkbox"/>
+<label class="md-overlay" for="__drawer"></label>
+<div data-md-component="skip">
+<a class="md-skip" href="#building-block-view">
+          Skip to content
+        </a>
+</div>
+<div data-md-component="announce">
+</div>
+<header class="md-header" data-md-component="header">
+<nav aria-label="Header" class="md-header-nav md-grid">
+<a aria-label="Car Rent!" class="md-header-nav__button md-logo" href="../.." title="Car Rent!">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+<label class="md-header-nav__button md-icon" for="__drawer">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M3 6h18v2H3V6m0 5h18v2H3v-2m0 5h18v2H3v-2z"></path></svg>
+</label>
+<div class="md-header-nav__title" data-md-component="header-title">
+<div class="md-header-nav__ellipsis">
+<div class="md-header-nav__topic">
+<span class="md-ellipsis">
+            Car Rent!
+          </span>
+</div>
+<div class="md-header-nav__topic">
+<span class="md-ellipsis">
+            
+              Building Block View
+            
+          </span>
+</div>
+</div>
+</div>
+<label class="md-header-nav__button md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+</label>
+<div class="md-search" data-md-component="search" role="dialog">
+<label class="md-search__overlay" for="__search"></label>
+<div class="md-search__inner" role="search">
+<form class="md-search__form" name="search">
+<input aria-label="Search" autocapitalize="off" autocomplete="off" autocorrect="off" class="md-search__input" data-md-component="search-query" data-md-state="active" name="query" placeholder="Search" required="" spellcheck="false" type="text"/>
+<label class="md-search__icon md-icon" for="__search">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M9.5 3A6.5 6.5 0 0116 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.516 6.516 0 019.5 16 6.5 6.5 0 013 9.5 6.5 6.5 0 019.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5z"></path></svg>
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</label>
+<button aria-label="Clear" class="md-search__icon md-icon" data-md-component="search-reset" tabindex="-1" type="reset">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"></path></svg>
+</button>
+</form>
+<div class="md-search__output">
+<div class="md-search__scrollwrap" data-md-scrollfix="">
+<div class="md-search-result" data-md-component="search-result">
+<div class="md-search-result__meta">
+            Initializing search
+          </div>
+<ol class="md-search-result__list"></ol>
+</div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+</header>
+<div class="md-container" data-md-component="container">
+<main class="md-main" data-md-component="main">
+<div class="md-main__inner md-grid">
+<div class="md-sidebar md-sidebar--primary" data-md-component="navigation">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Navigation" class="md-nav md-nav--primary" data-md-level="0">
+<label class="md-nav__title" for="__drawer">
+<a aria-label="Car Rent!" class="md-nav__button md-logo" href="../.." title="Car Rent!">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 8a3 3 0 003-3 3 3 0 00-3-3 3 3 0 00-3 3 3 3 0 003 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54z"></path></svg>
+</a>
+    Car Rent!
+  </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../..">
+        Welcome to MkDocs
+      </a>
+</li>
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../About%20arc42/">
+        About arc42
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3" id="nav-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3">
+        01 Introduction and Goals
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="01 Introduction and Goals" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-3">
+<span class="md-nav__icon md-icon"></span>
+          01 Introduction and Goals
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../01%20Introduction%20and%20Goals/Introduction%20and%20Goals/">
+        Introduction and Goals
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-2" id="nav-3-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-3-2">
+        1.1 Requirements Overview
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1.1 Requirements Overview" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-3-2">
+<span class="md-nav__icon md-icon"></span>
+          1.1 Requirements Overview
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../01%20Introduction%20and%20Goals/1.1%20Requirements%20Overview/Requirements%20Overview/">
+        Requirements Overview
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-3" id="nav-3-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-3-3">
+        1.2 Quality Goals
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1.2 Quality Goals" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-3-3">
+<span class="md-nav__icon md-icon"></span>
+          1.2 Quality Goals
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../01%20Introduction%20and%20Goals/1.2%20Quality%20Goals/Quality%20Goals/">
+        Quality Goals
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-3-4" id="nav-3-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-3-4">
+        1.3 Stakeholders
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="1.3 Stakeholders" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-3-4">
+<span class="md-nav__icon md-icon"></span>
+          1.3 Stakeholders
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../01%20Introduction%20and%20Goals/1.3%20Stakeholders/Stakeholders/">
+        Stakeholders
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-4" id="nav-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-4">
+        02. Architecture Constraints
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="02. Architecture Constraints" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-4">
+<span class="md-nav__icon md-icon"></span>
+          02. Architecture Constraints
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../02.%20Architecture%20Constraints/Architecture%20Constraints/">
+        Architecture Constraints
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-5" id="nav-5" type="checkbox"/>
+<label class="md-nav__link" for="nav-5">
+        03. Context and scope
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="03. Context and scope" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-5">
+<span class="md-nav__icon md-icon"></span>
+          03. Context and scope
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../03.%20Context%20and%20scope/Context%20and%20scope/">
+        Context and scope
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-2" id="nav-5-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-5-2">
+        3.1 Bussiness context
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="3.1 Bussiness context" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-5-2">
+<span class="md-nav__icon md-icon"></span>
+          3.1 Bussiness context
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../03.%20Context%20and%20scope/3.1%20Bussiness%20context/Business%20context/">
+        Business context
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-5-3" id="nav-5-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-5-3">
+        3.2 Technical context
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="3.2 Technical context" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-5-3">
+<span class="md-nav__icon md-icon"></span>
+          3.2 Technical context
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../03.%20Context%20and%20scope/3.2%20Technical%20context/Technical%20context/">
+        Technical context
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-6" id="nav-6" type="checkbox"/>
+<label class="md-nav__link" for="nav-6">
+        04. Solution Strategy
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="04. Solution Strategy" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-6">
+<span class="md-nav__icon md-icon"></span>
+          04. Solution Strategy
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../04.%20Solution%20Strategy/Solution%20Strategy/">
+        Solution Strategy
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--active md-nav__item--nested">
+<input checked="" class="md-nav__toggle md-toggle" data-md-toggle="nav-7" id="nav-7" type="checkbox"/>
+<label class="md-nav__link" for="nav-7">
+        05. Building Block View
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="05. Building Block View" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-7">
+<span class="md-nav__icon md-icon"></span>
+          05. Building Block View
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item md-nav__item--active">
+<input class="md-nav__toggle md-toggle" data-md-toggle="toc" id="__toc" type="checkbox"/>
+<a class="md-nav__link md-nav__link--active" href="./">
+        Building Block View
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-2" id="nav-7-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-2">
+        5.1 Whitebox Overall System
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.1 Whitebox Overall System" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-7-2">
+<span class="md-nav__icon md-icon"></span>
+          5.1 Whitebox Overall System
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.1%20Whitebox%20Overall%20System/Whitebox%20Overall%20System/">
+        Whitebox Overall System
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-3" id="nav-7-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-3">
+        5.2 Level 2
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.2 Level 2" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-7-3">
+<span class="md-nav__icon md-icon"></span>
+          5.2 Level 2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.2%20Level%202/Level%202/">
+        Level 2
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-3-2" id="nav-7-3-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-3-2">
+        5.2.1 White Box building block 1
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.2.1 White Box building block 1" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="nav-7-3-2">
+<span class="md-nav__icon md-icon"></span>
+          5.2.1 White Box building block 1
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.2%20Level%202/5.2.1%20White%20Box%20building%20block%201/White%20Box%20building%20block%201/">
+        White Box building block 1
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-3-3" id="nav-7-3-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-3-3">
+        5.2.2 White Box building block 2
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.2.2 White Box building block 2" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="nav-7-3-3">
+<span class="md-nav__icon md-icon"></span>
+          5.2.2 White Box building block 2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.2%20Level%202/5.2.2%20White%20Box%20building%20block%202/White%20Box%20building%20block%202/">
+        White Box building block 2
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-3-4" id="nav-7-3-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-3-4">
+        5.2.n White Box building block n
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.2.n White Box building block n" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="nav-7-3-4">
+<span class="md-nav__icon md-icon"></span>
+          5.2.n White Box building block n
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.2%20Level%202/5.2.n%20White%20Box%20building%20block%20n/White%20Box%20building%20block%20n/">
+        White Box building block n
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-4" id="nav-7-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-4">
+        5.3 Level 3
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.3 Level 3" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-7-4">
+<span class="md-nav__icon md-icon"></span>
+          5.3 Level 3
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.3%20Level%203/Level%203/">
+        Level 3
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-4-2" id="nav-7-4-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-4-2">
+        5.3.1. White Box building block x.1
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.3.1. White Box building block x.1" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="nav-7-4-2">
+<span class="md-nav__icon md-icon"></span>
+          5.3.1. White Box building block x.1
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.3%20Level%203/5.3.1.%20White%20Box%20building%20block%20x.1/White%20Box%20building%20block%20x.1/">
+        White Box building block x.1
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-4-3" id="nav-7-4-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-4-3">
+        5.3.2. White Box building block x.2
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.3.2. White Box building block x.2" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="nav-7-4-3">
+<span class="md-nav__icon md-icon"></span>
+          5.3.2. White Box building block x.2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.3%20Level%203/5.3.2.%20White%20Box%20building%20block%20x.2/White%20Box%20building%20block%20x.2/">
+        White Box building block x.2
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-7-4-4" id="nav-7-4-4" type="checkbox"/>
+<label class="md-nav__link" for="nav-7-4-4">
+        5.3.n. White Box building block y.1
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="5.3.n. White Box building block y.1" class="md-nav" data-md-level="3">
+<label class="md-nav__title" for="nav-7-4-4">
+<span class="md-nav__icon md-icon"></span>
+          5.3.n. White Box building block y.1
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../5.3%20Level%203/5.3.n.%20White%20Box%20building%20block%20y.1/White%20Box%20building%20block%20y.1/">
+        White Box building block y.1
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-8" id="nav-8" type="checkbox"/>
+<label class="md-nav__link" for="nav-8">
+        06. Runtime View
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="06. Runtime View" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-8">
+<span class="md-nav__icon md-icon"></span>
+          06. Runtime View
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../06.%20Runtime%20View/Runtime%20View/">
+        Runtime View
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-9" id="nav-9" type="checkbox"/>
+<label class="md-nav__link" for="nav-9">
+        07. Deployment View
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="07. Deployment View" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-9">
+<span class="md-nav__icon md-icon"></span>
+          07. Deployment View
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../07.%20Deployment%20View/Deployment%20View/">
+        Deployment View
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-9-2" id="nav-9-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-9-2">
+        7.1 Infrastructure Level 1
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="7.1 Infrastructure Level 1" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-9-2">
+<span class="md-nav__icon md-icon"></span>
+          7.1 Infrastructure Level 1
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../07.%20Deployment%20View/7.1%20Infrastructure%20Level%201/Infrastructure%20Level%201/">
+        Infrastructure Level 1
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-9-3" id="nav-9-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-9-3">
+        7.2 Infrastructure Level 2
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="7.2 Infrastructure Level 2" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-9-3">
+<span class="md-nav__icon md-icon"></span>
+          7.2 Infrastructure Level 2
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../07.%20Deployment%20View/7.2%20Infrastructure%20Level%202/Infrastructure%20Level%202/">
+        Infrastructure Level 2
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-10" id="nav-10" type="checkbox"/>
+<label class="md-nav__link" for="nav-10">
+        08. Crosscutting Concepts
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="08. Crosscutting Concepts" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-10">
+<span class="md-nav__icon md-icon"></span>
+          08. Crosscutting Concepts
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../08.%20Crosscutting%20Concepts/Crosscutting%20Concepts/">
+        Crosscutting Concepts
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-11" id="nav-11" type="checkbox"/>
+<label class="md-nav__link" for="nav-11">
+        09. Architecture Decisions
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="09. Architecture Decisions" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-11">
+<span class="md-nav__icon md-icon"></span>
+          09. Architecture Decisions
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../09.%20Architecture%20Decisions/Architecture%20Decisions/">
+        Architecture Decisions
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-12" id="nav-12" type="checkbox"/>
+<label class="md-nav__link" for="nav-12">
+        10. Quality Requirements
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="10. Quality Requirements" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-12">
+<span class="md-nav__icon md-icon"></span>
+          10. Quality Requirements
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../10.%20Quality%20Requirements/Quality%20Requirements/">
+        Quality Requirements
+      </a>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-12-2" id="nav-12-2" type="checkbox"/>
+<label class="md-nav__link" for="nav-12-2">
+        10.1 Quality Tree
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="10.1 Quality Tree" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-12-2">
+<span class="md-nav__icon md-icon"></span>
+          10.1 Quality Tree
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../10.%20Quality%20Requirements/10.1%20Quality%20Tree/Quality%20Tree/">
+        Quality Tree
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-12-3" id="nav-12-3" type="checkbox"/>
+<label class="md-nav__link" for="nav-12-3">
+        10.2 Quality Scenarios
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="10.2 Quality Scenarios" class="md-nav" data-md-level="2">
+<label class="md-nav__title" for="nav-12-3">
+<span class="md-nav__icon md-icon"></span>
+          10.2 Quality Scenarios
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../10.%20Quality%20Requirements/10.2%20Quality%20Scenarios/Quality%20Scenarios/">
+        Quality Scenarios
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-13" id="nav-13" type="checkbox"/>
+<label class="md-nav__link" for="nav-13">
+        11. Risks and Technical Debt
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="11. Risks and Technical Debt" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-13">
+<span class="md-nav__icon md-icon"></span>
+          11. Risks and Technical Debt
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../11.%20Risks%20and%20Technical%20Debt/Risks%20and%20Technical%20Debt/">
+        Risks and Technical Debt
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+<li class="md-nav__item md-nav__item--nested">
+<input class="md-nav__toggle md-toggle" data-md-toggle="nav-14" id="nav-14" type="checkbox"/>
+<label class="md-nav__link" for="nav-14">
+        12. Glossary
+        <span class="md-nav__icon md-icon"></span>
+</label>
+<nav aria-label="12. Glossary" class="md-nav" data-md-level="1">
+<label class="md-nav__title" for="nav-14">
+<span class="md-nav__icon md-icon"></span>
+          12. Glossary
+        </label>
+<ul class="md-nav__list" data-md-scrollfix="">
+<li class="md-nav__item">
+<a class="md-nav__link" href="../../12.%20Glossary/Glossary/">
+        Glossary
+      </a>
+</li>
+</ul>
+</nav>
+</li>
+</ul>
+</nav>
+</div>
+</div>
+</div>
+<div class="md-sidebar md-sidebar--secondary" data-md-component="toc">
+<div class="md-sidebar__scrollwrap">
+<div class="md-sidebar__inner">
+<nav aria-label="Table of contents" class="md-nav md-nav--secondary">
+</nav>
+</div>
+</div>
+</div>
+<div class="md-content">
+<article class="md-content__inner md-typeset">
+<h1 id="building-block-view">Building Block View</h1>
+<p><strong>Content.</strong></p>
+<p>The building block view shows the static decomposition of the system
+into building blocks (modules, components, subsystems, classes,
+interfaces, packages, libraries, frameworks, layers, partitions, tiers,
+functions, macros, operations, datas structures, …) as well as their
+dependencies (relationships, associations, …)</p>
+<p>This view is mandatory for every architecture documentation. In analogy
+to a house this is the <em>floor plan</em>.</p>
+<p><strong>Motivation.</strong></p>
+<p>Maintain an overview of your source code by making its structure
+understandable through abstraction.</p>
+<p>This allows you to communicate with your stakeholder on an abstract
+level without disclosing implementation details.</p>
+<p><strong>Form.</strong></p>
+<p>The building block view is a hierarchical collection of black boxes and
+white boxes (see figure below) and their descriptions.</p>
+<p><img alt="Hierarchy of building blocks" src="../../images/05_building_blocks-EN.png"/></p>
+<p><strong>Level 1</strong> is the white box description of the overall system together
+with black box descriptions of all contained building blocks.</p>
+<p><strong>Level 2</strong> zooms into some building blocks of level 1. Thus it contains
+the white box description of selected building blocks of level 1,
+together with black box descriptions of their internal building blocks.</p>
+<p><strong>Level 3</strong> zooms into selected building blocks of level 2, and so on.</p>
+</article>
+</div>
+</div>
+</main>
+<footer class="md-footer">
+<div class="md-footer-nav">
+<nav aria-label="Footer" class="md-footer-nav__inner md-grid">
+<a class="md-footer-nav__link md-footer-nav__link--prev" href="../../04.%20Solution%20Strategy/Solution%20Strategy/" rel="prev">
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12z"></path></svg>
+</div>
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Previous
+                </span>
+                Solution Strategy
+              </div>
+</div>
+</a>
+<a class="md-footer-nav__link md-footer-nav__link--next" href="../5.1%20Whitebox%20Overall%20System/Whitebox%20Overall%20System/" rel="next">
+<div class="md-footer-nav__title">
+<div class="md-ellipsis">
+<span class="md-footer-nav__direction">
+                  Next
+                </span>
+                Whitebox Overall System
+              </div>
+</div>
+<div class="md-footer-nav__button md-icon">
+<svg viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M4 11v2h12l-5.5 5.5 1.42 1.42L19.84 12l-7.92-7.92L10.5 5.5 16 11H4z"></path></svg>
+</div>
+</a>
+</nav>
+</div>
+<div class="md-footer-meta md-typeset">
+<div class="md-footer-meta__inner md-grid">
+<div class="md-footer-copyright">
+        
+        Made with
+        <a href="https://squidfunk.github.io/mkdocs-material/" rel="noopener" target="_blank">
+          Material for MkDocs
+        </a>
+</div>
+</div>
+</div>
+</footer>
+</div>
+<script src="../../assets/javascripts/vendor.18f0862e.min.js"></script>
+<script src="../../assets/javascripts/bundle.994580cf.min.js"></script><script id="__lang" type="application/json">{"clipboard.copy": "Copy to clipboard", "clipboard.copied": "Copied to clipboard", "search.config.lang": "en", "search.config.pipeline": "trimmer, stopWordFilter", "search.config.separator": "[\\s\\-]+", "search.placeholder": "Search", "search.result.placeholder": "Type to start searching", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.term.missing": "Missing"}</script>
+<script>
+        app = initialize({
+          base: "../..",
+          features: [],
+          search: Object.assign({
+            worker: "../../assets/javascripts/worker/search.9c0e82ba.min.js"
+          }, typeof search !== "undefined" && search)
+        })
+      </script>
+<script src="https://unpkg.com/mermaid/dist/mermaid.min.js"></script>
+</body>
+</html>
