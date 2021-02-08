@@ -1,6 +1,6 @@
-# Welcome to CarRent
+# Willkommen zu CarRent
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+Das Automietsystem der nächsten Generation.
 
 ## Commands
 
