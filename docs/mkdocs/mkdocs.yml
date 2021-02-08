@@ -1,0 +1,14 @@
+site_name: Car Rent!
+
+theme:
+  name: material
+  
+plugins:
+    - search
+    - mermaid2:
+        arguments:
+          theme: 'dark'
+
+
+extra_javascript:
+    - https://unpkg.com/mermaid/dist/mermaid.min.js
