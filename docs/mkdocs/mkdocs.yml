@@ -1,7 +1,14 @@
-site_name: Car Rent!
+site_name: CarRent
 
 theme:
   name: material
+  palette:
+    scheme: slate
+    primary: blue
+    accent: deep orange
+  favicon: images/favicon.ico
+  features:
+    - header.autohide
   
 plugins:
     - search
@@ -9,6 +16,7 @@ plugins:
         arguments:
           theme: 'dark'
 
-
 extra_javascript:
     - https://unpkg.com/mermaid/dist/mermaid.min.js
+
+repo_url: https://github.com/BenjaminZ1/CarRent
