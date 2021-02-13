@@ -1,12 +1,22 @@
 System Sequence
 ---------------------
 
-**Content**
+**Contents.**
 
-The functional requirements are described [here](/src/requirements.pdf).
-The goal of the project is to create a car-rent-system based on .NET Core Web API
-with a clean Three-Tier-Architecture.
+Any requirement that constrains software architects in their freedom of
+design and implementation decisions or decision about the development
+process. These constraints sometimes go beyond individual systems and
+are valid for whole organizations and companies.
 
-**Motivation**
+**Motivation.**
 
-To develop and document a reliable web-based car-rent-system
+Architects should know exactly where they are free in their design
+decisions and where they must adhere to constraints. Constraints must
+always be dealt with; they may be negotiable, though.
+
+**Form.**
+
+Simple tables of constraints with explanations. If needed you can
+subdivide them into technical constraints, organizational and political
+constraints and conventions (e.g. programming or versioning guidelines,
+documentation or naming conventions)
