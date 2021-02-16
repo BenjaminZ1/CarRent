@@ -1,2 +1,3 @@
-## Context Diagram
+Context Diagram
+---------------------
 ![ContextDiagram](../../images/CarRent-SystemContext.drawio.svg)
