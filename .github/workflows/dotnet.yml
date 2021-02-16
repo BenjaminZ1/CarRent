@@ -63,15 +63,4 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"BenjaminZ1_CarRent" /o:"benjaminz1" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vscoveragexml.reportsPaths="*.coveragexml" /d:sonar.cs.vstest.reportsPaths="*.trx"
           dotnet build
           dotnet test --collect "Code Coverage" --logger trx --results-directory "TestsResults"
-          Install-Package Microsoft.CodeCoverage -Version 16.8.3
-          Get-ChildItem -Recurse -Filter "*.coverage" | Foreach-Object {
-          $outfile = "$([System.IO.Path]::GetFileNameWithoutExtension($_.FullName)).coveragexml"
-          $output = [System.IO.Path]::Combine([System.IO.Path]::GetDirectoryName($_.FullName), $outfile)
-          & $env:CodeCoveragePath\CodeCoverage.exe analyze /output:$output $_.FullName 
-          }
-
-          Get-ChildItem -Recurse -Filter "*.coveragexml" | Foreach-Object { 
-          $file = Join-Path -Path $_.Directory -ChildPath $_.Name
-          Copy-Item $file -Destination 'TestsResults'
-          }
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
