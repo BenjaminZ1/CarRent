@@ -62,5 +62,5 @@ jobs:
         run: |
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"BenjaminZ1_CarRent" /o:"benjaminz1" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.cs.vstest.reportsPaths=".\TestsResults\*.trx"
           dotnet build
-          dotnet test --collect "Code Coverage" --logger trx --results-directory "TestsResults"
+          dotnet test --no-build --collect "Code Coverage" --logger trx --results-directory "TestsResults"
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
