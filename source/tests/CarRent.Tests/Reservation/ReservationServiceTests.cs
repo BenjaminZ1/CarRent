@@ -173,6 +173,7 @@ namespace CarRent.Tests.Reservation
 
             var reservationService = new ReservationService(reservationRepositoryFake);
             A.CallTo(() => reservationRepositoryFake.Delete(id)).Returns(responseDto);
+
             //act
             var result = await reservationService.Delete(id);
 

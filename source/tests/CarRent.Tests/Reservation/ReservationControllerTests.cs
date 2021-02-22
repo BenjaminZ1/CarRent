@@ -133,7 +133,7 @@ namespace CarRent.Tests.Reservation
             A.CallTo(() => reservationServiceFake.Get(id)).Throws(new InvalidOperationException
                 ("Ich bin eine TestExcpetion"));
 
-
+            //act
             var actionResult = await reservationController.Get(id);
 
             //assert
@@ -194,6 +194,7 @@ namespace CarRent.Tests.Reservation
             A.CallTo(() => reservationServiceFake.GetAll()).Throws(new InvalidOperationException
                 ("Ich bin eine TestExcpetion"));
 
+            //act
             var actionResult = await reservationController.GetAll();
 
             //assert
