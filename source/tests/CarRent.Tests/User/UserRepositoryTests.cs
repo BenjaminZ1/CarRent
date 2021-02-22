@@ -212,6 +212,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Delete(id);
 
+            //assert
             result.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -235,6 +236,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Delete(id);
 
+            //assert
             result.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -255,6 +257,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(id, name, lastName);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
             result[0].Id.Should().Be(id);
@@ -278,6 +281,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(null, name, lastName);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
             result[0].Id.Should().Be(1);
@@ -299,6 +303,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(null, null, lastName);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
             result[0].Id.Should().Be(1);
@@ -320,6 +325,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(id, null, null);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
             result[0].Id.Should().Be(1);
@@ -342,6 +348,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(id, name, null);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
             result[0].Id.Should().Be(id);
@@ -364,6 +371,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(id, null, lastName);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
             result[0].Id.Should().Be(id);
@@ -386,6 +394,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(null, name, null);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(1);
             result[0].Id.Should().Be(1);
@@ -407,6 +416,7 @@ namespace CarRent.Tests.User
             //act
             var result = await userRepository.Search(id, null, null);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.User.Domain.User>));
             result.Count.Should().Be(0);
         }

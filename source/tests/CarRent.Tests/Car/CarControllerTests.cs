@@ -160,10 +160,6 @@ namespace CarRent.Tests.Car
                 ("Ich bin eine TestExcpetion"));
 
             //act
-            //Func<Task> testFunc = async () =>
-            //{
-            //    await carController.Get(id);
-            //};
             var actionResult = await carController.Get(id);
 
             //assert
@@ -225,10 +221,6 @@ namespace CarRent.Tests.Car
                 ("Ich bin eine TestExcpetion"));
 
             //act
-            //Func<Task> testFunc = async () =>
-            //{
-            //    await carController.Get(id);
-            //};
             var actionResult = await carController.GetAll();
 
             //assert

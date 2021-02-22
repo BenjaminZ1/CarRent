@@ -39,6 +39,7 @@ namespace CarRent.Tests.Reservation
     class ReservationRepositoryTests
     {
         private DbContextOptions<ReservationDbContext> _options;
+
         [OneTimeSetUp]
         public void CarDbContext_BuildDbContext()
         {
@@ -211,6 +212,7 @@ namespace CarRent.Tests.Reservation
             //act
             var result = await reservationRepository.Delete(id);
 
+            //assert
             result.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -233,6 +235,7 @@ namespace CarRent.Tests.Reservation
             //act
             var result = await reservationRepository.Delete(id);
 
+            //assert
             result.Should().BeEquivalentTo(expectedResult);
         }
     }

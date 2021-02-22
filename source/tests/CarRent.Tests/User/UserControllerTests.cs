@@ -102,7 +102,7 @@ namespace CarRent.Tests.User
             A.CallTo(() => userServiceFake.Get(id)).Throws(new InvalidOperationException
                 ("Ich bin eine TestExcpetion"));
 
-
+            //act
             var actionResult = await userController.Get(id);
 
             //assert
@@ -163,6 +163,7 @@ namespace CarRent.Tests.User
             A.CallTo(() => userServiceFake.GetAll()).Throws(new InvalidOperationException
                 ("Ich bin eine TestExcpetion"));
 
+            //act
             var actionResult = await userController.GetAll();
 
             //assert

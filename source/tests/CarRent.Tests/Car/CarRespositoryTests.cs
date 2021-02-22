@@ -205,6 +205,7 @@ namespace CarRent.Tests.Car
             //act
             var result = await carRepository.Delete(id);
 
+            //assert
             result.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -228,6 +229,7 @@ namespace CarRent.Tests.Car
             //act
             var result = await carRepository.Delete(id);
 
+            //assert
             result.Should().BeEquivalentTo(expectedResult);
         }
 
@@ -246,6 +248,7 @@ namespace CarRent.Tests.Car
             //act
             var result = await carRepository.Search(brand, model);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(1);
             result[0].Brand.Should().Be(brand);
@@ -266,6 +269,7 @@ namespace CarRent.Tests.Car
             //act
             var result = await carRepository.Search(brand, null);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(1);
             result[0].Brand.Should().Be(brand);
@@ -285,6 +289,7 @@ namespace CarRent.Tests.Car
             //act
             var result = await carRepository.Search(null, model);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(1);
             result[0].Model.Should().Be(model);
@@ -304,6 +309,7 @@ namespace CarRent.Tests.Car
             //act
             var result = await carRepository.Search(null, model);
 
+            //assert
             result.Should().BeOfType(typeof(List<CarRent.Car.Domain.Car>));
             result.Count.Should().Be(0);
         }
